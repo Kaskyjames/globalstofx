@@ -1038,13 +1038,13 @@ body {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #0d1b3d; /* Dark Blue */
+  color:  #0a1a3c; /* Dark Blue */
   text-align: center;
 }
 
 .section-subtitle {
   font-size: 1.1rem;
-  color: #3a4665; /* Darker grayish blue */
+  color:  #0a1a3c; /* Darker grayish blue */
   text-align: center;
   margin-bottom: 3rem;
 }
@@ -1080,7 +1080,7 @@ body {
   position: absolute;
   top: -10px;
   left: -10px;
-  background-color: #0d1b3d; /* Dark Blue */
+  background-color:  #0a1a3c; /* Dark Blue */
   color: #fff;
   font-weight: 600;
   padding: 0.5rem 1rem;
@@ -1095,7 +1095,7 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 1.5rem 0 0.5rem;
-  color: #0d1b3d; /* Dark Blue */
+  color:  #0a1a3c /* Dark Blue */
   text-align: center;
 }
 
@@ -1129,7 +1129,7 @@ body {
   display: block;
   width: 100%;
   padding: 0.8rem 0;
-  background-color: #0d1b3d; /* Dark Blue */
+  background-color:   #0a1a3c; /* Dark Blue */
   color: #fff;
   font-weight: 600;
   border: none;
@@ -1141,7 +1141,7 @@ body {
 }
 
 .plan-cta:hover {
-  background-color: #0a1430; /* Darker hover shade */
+  background-color:  #0a1a3c; /* Darker hover shade */
   transform: translateY(-2px);
 }
 
@@ -1176,7 +1176,7 @@ body {
 }
 
 .comparison-table thead {
-  background: #e5e9f2; /* Light blueish header */
+  background:  #0a1a3c; /* Light blueish header */
   font-weight: 600;
 }
 
