@@ -948,3 +948,16 @@ Services Section
   transform: scale(1.2) rotate(-5deg);
   color: #1e40af; /* deeper blue on hover */
 }
+
+/* Initial state */
+.reason-card {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Animate in */
+.reason-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.8s ease;
+}
