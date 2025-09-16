@@ -231,3 +231,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   reasonCards.forEach(card => observer.observe(card));
 });
+
+// WhatsApp Floating Chat Script
+document.addEventListener("DOMContentLoaded", () => {
+  const chatToggle = document.getElementById("chat-toggle");
+  const chatBox = document.getElementById("chat-box");
+  const chatClose = document.getElementById("chat-close");
+
+  // Open chat
+  chatToggle.addEventListener("click", () => {
+    chatBox.classList.add("open");
+    chatBox.setAttribute("aria-hidden", "false");
+  });
+
+  // Close chat
+  chatClose.addEventListener("click", () => {
+    chatBox.classList.remove("open");
+    chatBox.setAttribute("aria-hidden", "true");
+  });
+
+  // Close chat if clicking outside box
+  document.addEventListener("click", (e) => {
+    if (!chatBox.contains(e.target) && !chatToggle.contains(e.target)) {
+      chatBox.classList.remove("open");
+      chatBox.setAttribute("aria-hidden", "true");
+    }
+  });
+});
