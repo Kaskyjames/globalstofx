@@ -1012,269 +1012,285 @@ Services Section
 /* =========================
    Investment Plans Section
 ========================= */
-#investment-plans {
-  padding: 60px 20px;
-  background: linear-gradient(180deg, #0a0f2c, #0f172a);
-  color: #fff;
+/* =========================
+   GLOBAL STYLES
+========================= */
+:root {
+  --primary: #0a1f44;       /* Dark Navy Blue */
+  --accent: #1e90ff;        /* Bright Tech Blue */
+  --success: #22c55e;       /* Green */
+  --danger: #ef4444;
+  --text: #1f2937;          /* Neutral Dark */
+  --muted: #6b7280;         /* Muted Gray */
+  --light: #f9fafb;
+  --radius: 14px;
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#investment-plans .section-title {
+body {
+  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--light);
+  margin: 0;
+  line-height: 1.6;
+}
+
+h2.section-title {
+  text-align: center;
   font-size: 2.2rem;
   font-weight: 700;
-  text-align: center;
-  margin-bottom: 14px;
+  margin-bottom: 0.75rem;
   color: var(--primary);
+  position: relative;
 }
 
-#investment-plans .section-note {
+h2.section-title::after {
+  content: "";
+  width: 80px;
+  height: 4px;
+  background: var(--accent);
+  display: block;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+p.section-note,
+p.section-subtitle,
+p.risk-note {
   text-align: center;
-  max-width: 720px;
-  margin: 0 auto 40px auto;
+  max-width: 800px;
+  margin: 0.5rem auto 2rem;
+  color: var(--muted);
   font-size: 0.95rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.85);
 }
 
-/* Plans grid */
+/* =========================
+   PLANS GRID
+========================= */
 .plans-grid {
   display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  align-items: stretch;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-/* Plan Card */
 .plan-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(6px);
-  padding: 20px;
-  border-radius: 16px;
-  transition: transform 300ms cubic-bezier(.2,.9,.2,1), box-shadow 300ms;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow);
   position: relative;
-  overflow: hidden;
-  cursor: pointer;
+  text-align: center;
+  transition: var(--transition);
+  cursor: default;
 }
 
 .plan-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(37,99,235,0.25);
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
 }
 
-/* Ribbon */
 .plan-ribbon {
   position: absolute;
-  top: 14px;
-  right: -40px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  top: -12px;
+  left: 20px;
+  background: var(--accent);
   color: #fff;
-  padding: 8px 52px;
-  transform: rotate(45deg);
-  font-weight: 700;
-  font-size: 0.9rem; /* fixed from .9rem */
-  box-shadow: 0 6px 18px rgba(16,24,40,0.3);
+  padding: 0.3rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
-/* Subtext */
+.plan-card h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.4rem;
+  color: var(--primary);
+}
+
 .plan-sub {
-  color: rgba(255,255,255,0.85);
-  margin-bottom: 12px;
   font-size: 0.95rem;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
 }
 
-/* Features */
 .plan-features {
   list-style: none;
-  margin: 10px 0 16px 0;
   padding: 0;
-  color: rgba(255,255,255,0.9);
+  margin: 0 0 1.5rem;
 }
 
 .plan-features li {
-  margin: 8px 0;
-  padding-left: 16px;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text);
   position: relative;
+  padding-left: 20px;
 }
 
 .plan-features li::before {
   content: "✔";
   position: absolute;
   left: 0;
-  color: var(--primary);
-  font-size: 0.85rem;
+  color: var(--success);
+  font-weight: 600;
 }
 
 /* Buttons */
-.plan-cta,
-#modalInvest {
+.btn {
   display: inline-block;
-  padding: 10px 20px;
-  background: var(--primary);
+  background: var(--accent);
   color: #fff;
-  border: none;
-  border-radius: 8px;
+  padding: 0.7rem 1.4rem;
   font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
   cursor: pointer;
-  transition: background 200ms;
+  transition: var(--transition);
 }
 
-.plan-cta:hover,
-#modalInvest:hover {
-  background: var(--secondary);
+.btn:hover {
+  background: #0f5dbd;
+  transform: scale(1.05);
 }
 
 /* =========================
-   Modal Styles
+   COMPARISON TABLE
+========================= */
+.comparison-table-wrapper {
+  overflow-x: auto;
+  margin-top: 2rem;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 0.9rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.comparison-table th {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.comparison-table tbody tr:nth-child(even) {
+  background: #f3f4f6;
+}
+
+.comparison-table tbody tr:hover {
+  background: #eef2ff;
+  transition: var(--transition);
+}
+
+/* =========================
+   MODAL CALCULATOR
 ========================= */
 .modal {
   display: none;
   position: fixed;
-  z-index: 2000;
+  z-index: 3000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.55);
   justify-content: center;
   align-items: center;
 }
 
 .modal[aria-hidden="false"] {
   display: flex;
+  animation: fadeIn 0.3s ease;
 }
 
 .modal-content {
   background: #fff;
-  padding: 30px;
-  border-radius: 14px;
+  padding: 2rem;
+  border-radius: var(--radius);
   width: 100%;
-  max-width: 450px;
-  text-align: center;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-  animation: zoomIn 0.3s ease;
+  max-width: 420px;
+  box-shadow: var(--shadow);
+  position: relative;
+  animation: slideUp 0.4s ease;
 }
 
 .modal-close {
-  float: right;
-  font-size: 24px;
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 1.4rem;
   cursor: pointer;
+  color: var(--muted);
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--danger);
+}
+
+#calc-form {
+  margin: 1.5rem 0;
+}
+
+#calc-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+#calc-form input {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 .calc-results {
-  margin-top: 20px;
-  padding: 15px;
-  background: #f7f9fc;
-  border-radius: 8px;
+  background: #f9fafb;
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-top: 1rem;
   text-align: left;
+  animation: fadeIn 0.5s ease;
 }
 
 .calc-results.hidden {
   display: none;
 }
 
-@keyframes zoomIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-/* =========================
-   Comparison Table
-========================= */
-.comparison-section {
-  padding: 60px 20px;
-  background: rgba(255,255,255,0.02);
-  backdrop-filter: blur(8px);
-  border-radius: 16px;
-  margin-top: 40px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.1);
-}
-
-.comparison-table-wrapper {
-  overflow-x: auto;
-  border-radius: 12px;
-}
-
-.comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 700px;
-}
-
-.comparison-table th,
-.comparison-table td {
-  padding: 14px 20px;
-  border: 1px solid rgba(255,255,255,0.1);
-  text-align: center;
-}
-
-.comparison-table th {
-  background: rgba(0,0,0,0.4);
-  font-weight: 600;
-  color: #fff;
-}
-
-.comparison-table td {
-  background: rgba(0,0,0,0.2);
-  color: #4ea1ff;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  transition: background 0.3s ease;
-}
-
-.comparison-table tr:hover td {
-  background: rgba(0,0,0,0.35);
-  transition: background 0.3s ease;
-}
-
-.section-title {
-  font-size: 1.8rem;
+.calc-results h4 {
+  color: var(--primary);
   font-weight: 700;
-  margin-bottom: 8px;
-  text-align: center;
-}
-
-.section-subtitle {
-  font-size: 1rem;
-  color: #aaa;
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.risk-note {
-  font-size: 0.9rem;
-  color: #bbb;
-  margin-top: 20px;
-  text-align: center;
-}
-
-.risk-note a {
-  color: #4ea1ff;
-  text-decoration: underline;
+  margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
 /* =========================
-   Desktop View Spacing & Alignment
+   ANIMATIONS
 ========================= */
-@media (min-width: 992px) {
-  #investment-plans {
-    padding: 80px 40px; /* more breathing space */
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  .plans-grid {
-    gap: 40px; /* more space between cards */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* wider cards */
-  }
-
-  .plan-card {
-    padding: 28px; /* more inner spacing */
-    border-radius: 20px; /* cleaner edges */
-  }
-
-  #investment-plans .section-title {
-    margin-bottom: 24px; /* more gap before cards */
-  }
-
-  #investment-plans .section-note {
-    margin-bottom: 60px; /* better breathing space */
-  }
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
