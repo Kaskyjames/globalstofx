@@ -1012,192 +1012,201 @@ Services Section
 /* =========================
    Investment Plans Cards
 ========================= */
-/* ==============================
+/* =========================
    Global Styles
-============================== */
-:root {
-  --primary-bg: #0a1f44;
-  --primary-text: #ffffff;
-  --accent: #1e90ff;
-  --card-bg: url("images/stats.webp");
-}
-
+========================= */
 body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: var(--primary-bg);
-  color: var(--primary-text);
+  font-family: 'Inter', sans-serif;
+  color: #1e1e2f;
+  background-color: #f5f7fa;
   line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: var(--primary-text);
-  margin-bottom: 0.5em;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-p {
-  margin-bottom: 1em;
-  color: var(--primary-text);
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-
-/* ==============================
-   Sections
-============================== */
 .section {
-  padding: 80px 20px;
+  padding: 4rem 0;
 }
 
 .section-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #0b2c7d; /* Dark blue */
   text-align: center;
-  margin-bottom: 40px;
-  color: var(--primary-text);
 }
 
 .section-subtitle {
-  font-size: 1rem;
+  font-size: 1.1rem;
+  color: #27418f; /* Slightly lighter for subtitles */
   text-align: center;
-  margin-bottom: 30px;
-  color: #d0d8f0;
+  margin-bottom: 3rem;
 }
 
-/* ==============================
+/* =========================
    Plans Grid
-============================== */
+========================= */
 .plans-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
+  gap: 2rem;
 }
 
+/* =========================
+   Plan Card
+========================= */
 .plan-card {
-  background: var(--card-bg) center/cover no-repeat;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-  padding: 30px 20px;
-  text-align: center;
+  background: url("images/stats.webp") center/cover no-repeat;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  padding: 2rem 1.5rem 2.5rem;
   position: relative;
-  color: var(--primary-text);
+  transition: transform 0.3s, box-shadow 0.3s;
+  color: #1e1e2f;
+  background-color: #fff; /* fallback */
 }
 
+.plan-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Ribbon */
 .plan-ribbon {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  background: var(--accent);
+  top: 20px;
+  left: -10px;
+  background: linear-gradient(135deg, #0b2c7d, #1a4dbe);
   color: #fff;
-  padding: 6px 14px;
+  font-weight: 700;
+  padding: 0.5rem 1.2rem;
   font-size: 0.9rem;
-  border-radius: 20px;
-  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
 }
 
-.plan-card h3 {
-  margin: 20px 0 10px;
-  font-size: 1.3rem;
+/* Plan Titles */
+.plan-range {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 1.5rem 0 0.5rem;
+  color: #0b2c7d;
+  text-align: center;
 }
 
 .plan-sub {
   font-size: 0.95rem;
-  margin-bottom: 20px;
-  color: #e0e8ff;
+  color: #27418f;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
+/* Plan Features */
 .plan-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 25px;
+  margin-bottom: 1.8rem;
 }
+
 .plan-features li {
-  margin: 8px 0;
-  color: var(--primary-text);
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #e5e9f2;
+  font-size: 0.95rem;
+  color: #3a4665;
 }
 
-/* ==============================
-   Buttons
-============================== */
-.btn {
-  background: var(--accent);
+.plan-features li:last-child {
+  border-bottom: none;
+}
+
+/* CTA Button */
+.plan-cta {
+  display: block;
+  width: 100%;
+  padding: 0.9rem 0;
+  background: linear-gradient(135deg, #0b2c7d, #1a4dbe);
   color: #fff;
+  font-weight: 600;
   border: none;
-  padding: 12px 24px;
-  border-radius: 30px;
-  font-size: 1rem;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.3s ease;
-}
-.btn:hover {
-  background: #006edc;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-align: center;
 }
 
-/* ==============================
+.plan-cta:hover {
+  background: linear-gradient(135deg, #091f5c, #133c9b);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(11, 44, 125, 0.3);
+}
+
+/* =========================
    Comparison Table
-============================== */
+========================= */
+.comparison-section {
+  margin-top: 5rem;
+}
+
 .comparison-table-wrapper {
   overflow-x: auto;
-  margin-top: 30px;
+  margin-top: 2rem;
 }
 
 .comparison-table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--primary-bg);
-  color: var(--primary-text);
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
 .comparison-table th,
 .comparison-table td {
-  padding: 12px 15px;
-  border: 1px solid #1e335c;
   text-align: center;
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: #0b2c7d;
+  border-bottom: 1px solid #e5e9f2;
 }
 
-.comparison-table th {
-  background: #122b5c;
-  color: #fff;
+.comparison-table thead {
+  background: #e5e9f2;
   font-weight: 600;
 }
 
-.comparison-table tr:nth-child(even) {
-  background: #132b55;
+.comparison-table tbody tr:hover {
+  background: #f5f7fa;
 }
 
-/* ==============================
-   Risk Note
-============================== */
 .risk-note {
-  font-size: 0.9rem;
-  margin-top: 20px;
-  color: #d0d8f0;
   text-align: center;
-}
-.risk-note a {
-  color: var(--accent);
-  font-weight: 600;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 1.5rem;
 }
 
-/* ==============================
+/* =========================
    Responsive
-============================== */
+========================= */
 @media (max-width: 768px) {
-  .section {
-    padding: 60px 15px;
+  .plans-grid {
+    grid-template-columns: 1fr;
   }
 
-  .plan-card {
-    padding: 25px 15px;
+  .plan-features li {
+    font-size: 0.9rem;
   }
 
-  .plan-card h3 {
-    font-size: 1.1rem;
+  .plan-range {
+    font-size: 1.3rem;
   }
-}
+   }
