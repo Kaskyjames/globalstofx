@@ -720,24 +720,37 @@ Services Section
   padding: 100px 20px;
   background: url("images/we-do.jpg") no-repeat center center / cover;
   background-attachment: fixed; /* parallax effect */
-  color: #fff; /* ensures text is readable */
-  z-index: 1;
+  color: #000; /* black text */
+  text-align: center;
 }
 
-/* Dark overlay for readability */
-#what::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55); /* darken background */
-  z-index: -1;
+/* Title styling */
+#what h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  color: #000; /* black */
 }
 
-/* Keep content above overlay */
-#what h2,
-#what .what-grid {
-  position: relative;
-  z-index: 2;
+/* Grid for cards */
+.what-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  justify-content: center;
+}
+
+/* Cards */
+.what-card {
+  background: #fff; /* keep white cards for contrast */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.what-card:hover {
+  transform: translateY(-8px);
 }
 
 #what h2 {
