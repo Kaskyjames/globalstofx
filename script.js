@@ -338,3 +338,91 @@ function populateComparison() {
 }
 
 document.addEventListener("DOMContentLoaded", populateComparison);
+
+/* =========================
+   Modal Calculator Logic
+========================= */
+
+const modal = document.getElementById("calculator-modal");
+const modalClose = document.getElementById("modal-close");
+const calcPlanName = document.getElementById("calc-plan-name");
+
+const depositInput = document.getElementById("deposit");
+const calcForm = document.getElementById("calc-form");
+const calcResults = document.getElementById("calc-results");
+
+const resultDeposit = document.getElementById("result-deposit");
+const resultRate = document.getElementById("result-rate");
+const resultDuration = document.getElementById("result-duration");
+const resultReferral = document.getElementById("result-referral");
+const resultBonus = document.getElementById("result-bonus");
+const resultTotal = document.getElementById("result-total");
+
+let currentPlan = null;
+
+// Open modal on "View calculator"
+document.querySelectorAll(".plan-cta").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const card = e.target.closest(".plan-card");
+
+    currentPlan = {
+      name: card.dataset.plan,
+      min: parseFloat(card.dataset.min),
+      max: parseFloat(card.dataset.max),
+      rate: parseFloat(card.dataset.rate),
+      duration: parseInt(card.dataset.duration, 10),
+      referral: parseFloat(card.dataset.referral),
+      bonus: card.dataset.bonus ? parseFloat(card.dataset.bonus) : 0,
+    };
+
+    calcPlanName.textContent = `${currentPlan.name} Plan Calculator`;
+    depositInput.value = "";
+    calcResults.classList.add("hidden");
+
+    modal.setAttribute("aria-hidden", "false");
+  });
+});
+
+// Close modal
+modalClose.addEventListener("click", () => {
+  modal.setAttribute("aria-hidden", "true");
+});
+
+// Close modal on background click
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.setAttribute("aria-hidden", "true");
+  }
+});
+
+// ROI Calculation
+function calculateROI(deposit, rate, duration, bonus = 0) {
+  let amount = deposit + bonus;
+  for (let i = 0; i < duration; i++) {
+    amount += amount * rate;
+  }
+  return amount.toFixed(2);
+}
+
+// Handle calculation form
+calcForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const deposit = parseFloat(depositInput.value);
+
+  if (!deposit || deposit < currentPlan.min || deposit > currentPlan.max) {
+    alert(`Deposit must be between $${currentPlan.min} and $${currentPlan.max}`);
+    return;
+  }
+
+  const total = calculateROI(deposit, currentPlan.rate, currentPlan.duration, currentPlan.bonus);
+
+  resultDeposit.textContent = deposit.toLocaleString();
+  resultRate.textContent = (currentPlan.rate * 100).toFixed(1);
+  resultDuration.textContent = currentPlan.duration;
+  resultReferral.textContent = currentPlan.referral;
+  resultBonus.textContent = currentPlan.bonus;
+  resultTotal.textContent = parseFloat(total).toLocaleString();
+
+  calcResults.classList.remove("hidden");
+});
