@@ -400,3 +400,32 @@ if (comparisonBody) {
     comparisonBody.appendChild(row);
   });
     }
+
+/* =========================
+   TOOLTIP DYNAMIC SETUP
+========================= */
+function addTooltip(element, text) {
+  const wrapper = document.createElement("span");
+  wrapper.classList.add("tooltip");
+  wrapper.style.display = "inline-block";
+
+  const tooltipText = document.createElement("span");
+  tooltipText.classList.add("tooltip-text");
+  tooltipText.textContent = text;
+
+  // Move element inside wrapper
+  element.parentNode.insertBefore(wrapper, element);
+  wrapper.appendChild(element);
+  wrapper.appendChild(tooltipText);
+}
+
+// Attach tooltips to results in modal
+if (resultReferral && resultBonus) {
+  addTooltip(resultReferral.parentNode, "Percentage reward for referring new investors.");
+  addTooltip(resultBonus.parentNode, "One-time signup bonus added to your deposit.");
+}
+
+// Attach tooltips to plan ribbons
+document.querySelectorAll(".plan-ribbon").forEach(ribbon => {
+  addTooltip(ribbon, "Plan tier indicating features and benefits.");
+});
