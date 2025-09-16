@@ -1,0 +1,256 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>GlobalstoxFX • Secure & Transparent Investments</title>  
+  <meta name="description" content="GlobalstoxFX is a regulated investment platform offering crypto and financial market solutions. Build your wealth with confidence." />  
+  
+  <!-- CSS Link -->  
+  <link rel="stylesheet" href="style.css" />  
+  <!-- AOS Animation CSS -->  
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>  
+  <!-- Swiper.js CSS for testimonials -->  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>  
+  <!-- icon -->  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
+</head>  
+<body>  
+  
+  <!-- Navbar -->  
+  <nav class="navbar">  
+    <div class="logo">GlobalstoxFX</div>  
+    <ul class="nav-links">  
+      <li><a href="#home" class="active">Home</a></li>  
+      <li><a href="#about">About</a></li>  
+      <li><a href="#services">Services</a></li>  
+      <li><a href="#why">Why Choose Us</a></li>  
+      <li><a href="#contact">Contact</a></li>  
+      <li><a href="signup.html" class="btn small">Sign Up</a></li>  
+      <li><a href="login.html" class="btn small">Login</a></li>  
+    </ul>  
+    <div class="menu-toggle">&#9776;</div>  
+  </nav>  
+  
+  <!-- Hero Section with Video Background + Poster -->  
+  <section id="hero" class="hero">  
+    <video class="hero-video" autoplay muted loop playsinline preload="none" poster="images/hero-poster.jpg">  
+      <source src="images/herosv.mp4" type="video/mp4">  
+      Your browser does not support the video tag.  
+    </video>  
+    <div class="hero-content container" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">  
+      <h1>Secure & Transparent Digital Investments</h1>  
+      <p>  
+        Empowering investors since 2011 with trusted, regulated, and innovative  
+        financial solutions. Build your wealth with confidence through our  
+        advanced crypto and investment platform.  
+      </p>  
+      <div class="hero-actions">  
+        <a href="#investment-plans" class="btn btn-primary">Explore Plans</a>  
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <!-- About Section -->  
+  <section class="section dark" id="about">  
+    <div class="container">  
+      <!-- Section Title -->  
+      <h2 data-aos="fade-up">About GlobalstoxFX</h2>  
+  
+      <!-- Content Wrapper -->  
+      <div class="about-container" data-aos="fade-up" data-aos-delay="200">  
+          
+        <!-- Left Side: Company Intro -->  
+        <div class="about-left">  
+          <p>  
+            Founded in 2011, <strong>GlobalstoxFX</strong> is a licensed and regulated platform dedicated to secure,   
+            transparent, and accessible crypto investment. We combine advanced blockchain technology with strict AML   
+            and KYC compliance to protect investors at every step — from two-factor authentication and cold wallet   
+            storage to audits and insurance-backed safeguards.  
+          </p>  
+          <p>  
+            Our solutions serve all levels, from Starter Mining Plans to Pro Packages and institutional strategies.   
+            With real-time reporting, transparent metrics, and global support, we don’t just provide services —   
+            we empower investors to grow confidently in the digital economy.  
+          </p>  
+        </div>  
+  
+        <!-- Divider -->  
+        <div class="about-divider"></div>  
+  
+        <!-- Right Side: Core Values -->  
+        <div class="about-right">  
+          <h3>At GlobalstoxFX, we stand for:</h3>  
+          <ul class="values-list">  
+            <li><strong>Security</strong> – Military-grade systems, cold wallets, and insured assets.</li>  
+            <li><strong>Transparency</strong> – Regular audits, regulatory compliance, and real-time data.</li>  
+            <li><strong>Global Reach</strong> – Serving clients in multiple countries with multilingual support.</li>  
+            <li><strong>Innovation</strong> – Harnessing cutting-edge blockchain and mining technologies.</li>  
+          </ul>  
+          
+          <p class="about-tagline">  
+            Join thousands of investors worldwide who trust <strong>GlobalstoxFX</strong>   
+            to turn crypto potential into real opportunities.    
+            <br><em>GlobalstoxFX – Secure. Transparent. Trusted.</em>  
+          </p>  
+        </div>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <!-- Stats Section -->
+<section class="section stats" id="stats">
+  <div class="stats-header">
+    <h2 class="stats-title">Our Growing Numbers</h2>
+    <p class="stats-subtitle">Real-time performance backed by transparency</p>
+  </div>
+
+  <div class="stat">
+    <h3 id="users">0</h3>
+    <p>Registered Users</p>
+  </div>
+  <div class="stat">
+    <h3 id="power">0</h3>
+    <p>Active Mining Power (TH/s)</p>
+  </div>
+  <div class="stat">
+    <h3 id="withdrawals">0</h3>
+    <p>Total Withdrawals ($)</p>
+  </div>
+</section>
+  
+  <!-- Crypto Ticker -->
+<section class="crypto-ticker">
+  <div class="ticker-wrapper">
+    <ul id="ticker-list"></ul>
+  </div>
+</section>
+  
+  <!-- Services Section -->  
+  <section class="section" id="services" data-aos="fade-up">  
+    <h2>About Our Services</h2>  
+    <p class="services-intro">  
+      GlobalstoxFX is a vertically integrated financial platform combining decades of commodity   
+      and digital-asset experience with modern fintech engineering. We deliver institutional-grade   
+      investment opportunities across multiple asset classes while prioritizing investor protection,   
+      compliance, and transparent reporting.  
+    </p>  
+  </section>  
+    
+  <!-- What We Do Section -->  
+  <section class="section" id="what" data-aos="fade-up">
+  <h2>What We Do (At a Glance)</h2>
+  <div class="what-grid">
+
+    <!-- Card 1: Crypto -->
+    <div class="what-card" data-aos="fade-up">
+      <img src="images/crypto-mining.jpg" alt="Crypto Mining" class="card-img">
+      <h3>Crypto Mining & Investment</h3>
+      <p class="short">Energy-efficient mining facilities with real-time metrics.</p>
+      <div class="long-text">
+        <p>We operate globally distributed mining facilities using energy-efficient hardware and optimized pooling strategies. Investors can subscribe to managed mining capacity, receive real-time performance metrics, and benefit from professionally maintained infrastructure.</p>
+      </div>
+      <button class="toggle-btn">Read More</button>
+    </div>
+
+    <!-- Card 2: Gold -->
+    <div class="what-card" data-aos="fade-up" data-aos-delay="150">
+      <img src="images/gold.jpg" alt="Gold Investment" class="card-img">
+      <h3>Gold & Precious Metals Expertise</h3>
+      <p class="short">ESG-compliant mining and refining operations.</p>
+      <div class="long-text">
+        <p>Our minerals team sources and manages gold mining and refining operations with rigorous environmental, social, and governance (ESG) controls. We integrate gold exposure into diversified investment structures for clients seeking inflation-resistant allocation.</p>
+      </div>
+      <button class="toggle-btn">Read More</button>
+    </div>
+
+    <!-- Card 3: Forex -->
+    <div class="what-card" data-aos="fade-up" data-aos-delay="300">
+      <img src="images/forex.jpg" alt="Forex Trading" class="card-img">
+      <h3>Forex Trading & Liquidity Management</h3>
+      <p class="short">Algorithmic FX trading, hedging, and liquidity services.</p>
+      <div class="long-text">
+        <p>Our FX desk offers algorithmic and discretionary trading, currency hedging, and liquidity management for international flows. We combine low-latency infrastructure with risk controls to manage FX exposures for clients and institutional partners.</p>
+      </div>
+      <button class="toggle-btn">Read More</button>
+    </div>
+
+    <!-- Card 4: Fintech -->
+    <div class="what-card" data-aos="fade-up">
+      <img src="images/fintech.jpg" alt="Fintech" class="card-img">
+      <h3>Fintech Product Suite</h3>
+      <p class="short">Secure wallets, APIs, and financial platforms.</p>
+      <div class="long-text">
+        <p>We build secure custodial solutions, multi-currency wallets, payment rails, and analytics platforms. Our APIs and portals make it simple to manage accounts, track performance, and execute transfers securely.</p>
+      </div>
+      <button class="toggle-btn">Read More</button>
+    </div>
+
+    <!-- Card 5: Loans -->
+    <div class="what-card" data-aos="fade-up" data-aos-delay="150">
+      <img src="images/loans.jpg" alt="Loans & Credit" class="card-img">
+      <h3>Loans & Structured Credit</h3>
+      <p class="short">Tailored credit backed by collateral and FX hedges.</p>
+      <div class="long-text">
+        <p>We provide bespoke lending and structured credit facilities anchored on on-chain collateral, FX hedges, and revenue streams. Products range from short-term liquidity to multi-month credit lines for institutional clients.</p>
+      </div>
+      <button class="toggle-btn">Read More</button>
+    </div>
+
+    <!-- Card 6: Advisory -->
+    <div class="what-card" data-aos="fade-up" data-aos-delay="300">
+      <img src="images/advisory.jpg" alt="Financial Advisory" class="card-img">
+      <h3>Financial Management & Advisory</h3>
+      <p class="short">Portfolio construction and compliance consulting.</p>
+      <div class="long-text">
+        <p>Our advisory team offers portfolio construction, risk management, tax-aware structuring, and regulatory compliance consulting. We pair quantitative analysis with hands-on client service to optimize outcomes.</p>
+      </div>
+      <button class="toggle-btn">Read More</button>
+    </div>
+
+    <!-- Card 7: Mentorship -->
+    <div class="what-card" data-aos="fade-up">
+      <img src="images/mentorship.jpg" alt="Mentorship" class="card-img">
+      <h3>Mentorship & Training</h3>
+      <p class="short">Guidance for private investors and corporate teams.</p>
+      <div class="long-text">
+        <p>From private investor mentorship to corporate upskilling, our programs deliver practical training on mining economics, crypto trading, brokering, and fintech adoption.</p>
+      </div>
+      <button class="toggle-btn">Read More</button>
+    </div>
+
+  </div>
+  </section>
+
+  <!-- Floating WhatsApp Chat -->  
+  <div id="whatsapp-chat" data-aos="fade-up">  
+    <div class="chat-toggle" id="chat-toggle">  
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp icon">  
+    </div>  
+    <div class="chat-box" id="chat-box" aria-hidden="true">  
+      <div class="chat-header">  
+        <div class="chat-info">  
+          <h4>GlobalstoxFX Support</h4>  
+          <p>Typically replies within minutes</p>  
+        </div>  
+        <button id="chat-close" aria-label="Close chat">&times;</button>  
+      </div>  
+      <div class="chat-body">  
+        <p>👋 Hello! How can we assist you today?</p>  
+      </div>  
+      <div class="chat-footer">  
+        <a href="https://wa.me/17055673276?text=Hello%20GlobalstoxFX%20Support%2C%20I%20need%20help"  
+           target="_blank" rel="noopener" class="chat-btn">  
+          Start Chat  
+        </a>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- Scripts -->  
+  <script src="script.js"></script>  
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>  
+  <script>AOS.init();</script>  
+</body>  
+  </html>
