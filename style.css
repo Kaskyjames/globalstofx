@@ -1018,7 +1018,7 @@ Services Section
 body {
   font-family: 'Inter', sans-serif;
   color: #1e1e2f;
-  background-color: #f9f9fb;
+  background-color: #f5f7fa;
   line-height: 1.6;
   margin: 0;
   padding: 0;
@@ -1038,13 +1038,13 @@ body {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #111;
+  color: #0d1b3d; /* Dark Blue */
   text-align: center;
 }
 
 .section-subtitle {
   font-size: 1.1rem;
-  color: #555;
+  color: #3a4665; /* Darker grayish blue */
   text-align: center;
   margin-bottom: 3rem;
 }
@@ -1062,7 +1062,7 @@ body {
    Plan Card
 ========================= */
 .plan-card {
-  background: #fff;
+  background: #fff; /* White card background */
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   padding: 2rem 1.5rem 2.5rem;
@@ -1071,7 +1071,7 @@ body {
 }
 
 .plan-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
@@ -1080,7 +1080,7 @@ body {
   position: absolute;
   top: -10px;
   left: -10px;
-  background: linear-gradient(45deg, #6a5af9, #a17df5);
+  background-color: #0d1b3d; /* Dark Blue */
   color: #fff;
   font-weight: 600;
   padding: 0.5rem 1rem;
@@ -1095,13 +1095,13 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 1.5rem 0 0.5rem;
-  color: #222;
+  color: #0d1b3d; /* Dark Blue */
   text-align: center;
 }
 
 .plan-sub {
   font-size: 0.95rem;
-  color: #777;
+  color: #3a4665;
   text-align: center;
   margin-bottom: 1.5rem;
 }
@@ -1115,12 +1115,11 @@ body {
 
 .plan-features li {
   padding: 0.6rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #e5e9f2;
   font-size: 0.95rem;
-  color: #555;
+  color: #3a4665;
 }
 
-/* Last feature no border */
 .plan-features li:last-child {
   border-bottom: none;
 }
@@ -1130,7 +1129,7 @@ body {
   display: block;
   width: 100%;
   padding: 0.8rem 0;
-  background: linear-gradient(45deg, #6a5af9, #a17df5);
+  background-color: #0d1b3d; /* Dark Blue */
   color: #fff;
   font-weight: 600;
   border: none;
@@ -1142,7 +1141,7 @@ body {
 }
 
 .plan-cta:hover {
-  background: linear-gradient(45deg, #5a4ae0, #9160f0);
+  background-color: #0a1430; /* Darker hover shade */
   transform: translateY(-2px);
 }
 
@@ -1172,23 +1171,23 @@ body {
   text-align: center;
   padding: 1rem;
   font-size: 0.95rem;
-  color: #333;
-  border-bottom: 1px solid #eee;
+  color: #0d1b3d;
+  border-bottom: 1px solid #e5e9f2;
 }
 
 .comparison-table thead {
-  background: #f1f1f5;
+  background: #e5e9f2; /* Light blueish header */
   font-weight: 600;
 }
 
 .comparison-table tbody tr:hover {
-  background: #f9f9fb;
+  background: #f5f7fa;
 }
 
 .risk-note {
   text-align: center;
   font-size: 0.9rem;
-  color: #888;
+  color: #555;
   margin-top: 1.5rem;
 }
 
