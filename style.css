@@ -1012,112 +1012,199 @@ Services Section
 /* =========================
    Investment Plans Cards
 ========================= */
-.plans-grid {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  margin-top: 2rem;
+/* =========================
+   Global Styles
+========================= */
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1e1e2f;
+  background-color: #f9f9fb;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #111;
+  text-align: center;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* =========================
+   Plans Grid
+========================= */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* =========================
+   Plan Card
+========================= */
 .plan-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  padding: 2rem 1.5rem 2.5rem;
   position: relative;
-  border-radius: 1rem;
-  overflow: hidden;
-  padding: 2rem 1.5rem 1.5rem 1.5rem;
-  color: #fff;
-  background: url('images/stats.webp') center/cover no-repeat;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .plan-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-}
-
-/* Dark overlay behind text for readability */
-.plan-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.35); /* subtle dark layer */
-  z-index: 0;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 /* Ribbon */
 .plan-ribbon {
   position: absolute;
-  top: 0.5rem;
-  left: 0;
-  background-color: #2563eb;
+  top: -10px;
+  left: -10px;
+  background: linear-gradient(45deg, #6a5af9, #a17df5);
   color: #fff;
-  padding: 0.5rem 1.2rem;
   font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
   font-size: 0.9rem;
-  transform: rotate(-45deg) translate(-20%, -50%);
-  transform-origin: left top;
-  z-index: 2;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Card text */
-.plan-card h3,
-.plan-card .plan-sub,
-.plan-card ul {
-  position: relative;
-  z-index: 2;
-}
-
-.plan-card h3 {
+/* Plan Titles */
+.plan-range {
   font-size: 1.5rem;
-  margin-bottom: 0.5rem;
   font-weight: 700;
+  margin: 1.5rem 0 0.5rem;
+  color: #222;
+  text-align: center;
 }
 
-.plan-card .plan-sub {
+.plan-sub {
   font-size: 0.95rem;
-  margin-bottom: 1rem;
-  opacity: 0.9;
-}
-
-.plan-card ul {
-  list-style: none;
-  padding: 0;
+  color: #777;
+  text-align: center;
   margin-bottom: 1.5rem;
 }
 
-.plan-card ul li {
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  opacity: 0.9;
+/* Plan Features */
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.8rem;
 }
 
-/* Button */
-.plan-card .btn.plan-cta {
-  position: relative;
-  z-index: 2;
-  display: inline-block;
-  background-color: #2563eb;
+.plan-features li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Last feature no border */
+.plan-features li:last-child {
+  border-bottom: none;
+}
+
+/* CTA Button */
+.plan-cta {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 0;
+  background: linear-gradient(45deg, #6a5af9, #a17df5);
   color: #fff;
-  padding: 0.65rem 1.5rem;
-  border-radius: 50px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s, transform 0.2s;
+  text-align: center;
 }
 
-.plan-card .btn.plan-cta:hover {
-  background-color: #1d4ed8;
+.plan-cta:hover {
+  background: linear-gradient(45deg, #5a4ae0, #9160f0);
   transform: translateY(-2px);
 }
 
-/* Responsive adjustments */
+/* =========================
+   Comparison Table
+========================= */
+.comparison-section {
+  margin-top: 5rem;
+}
+
+.comparison-table-wrapper {
+  overflow-x: auto;
+  margin-top: 2rem;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.comparison-table th,
+.comparison-table td {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+
+.comparison-table thead {
+  background: #f1f1f5;
+  font-weight: 600;
+}
+
+.comparison-table tbody tr:hover {
+  background: #f9f9fb;
+}
+
+.risk-note {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 1.5rem;
+}
+
+/* =========================
+   Responsive
+========================= */
 @media (max-width: 768px) {
-  .plan-card {
-    padding: 1.8rem 1.2rem;
+  .plans-grid {
+    grid-template-columns: 1fr;
   }
-  .plan-card h3 {
-    font-size: 1.3rem;
-  }
-  .plan-card .plan-sub {
+
+  .plan-features li {
     font-size: 0.9rem;
+  }
+
+  .plan-range {
+    font-size: 1.3rem;
   }
 }
