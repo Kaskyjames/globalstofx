@@ -215,20 +215,19 @@ document.querySelectorAll(".toggle-btn").forEach((btn) => {
   });
 });
 
-// Why Choose Us Section Scroll Animation
+// Animate "Why Choose Us" cards on scroll with stagger
 document.addEventListener("DOMContentLoaded", () => {
   const reasonCards = document.querySelectorAll(".reason-card");
 
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("animate-in");
-        obs.unobserve(entry.target); // Animate once
+        setTimeout(() => {
+          entry.target.classList.add("animate-in");
+        }, index * 200); // staggered delay
       }
     });
   }, { threshold: 0.2 });
 
-  reasonCards.forEach(card => {
-    observer.observe(card);
-  });
+  reasonCards.forEach(card => observer.observe(card));
 });
