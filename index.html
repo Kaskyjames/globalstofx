@@ -423,6 +423,33 @@
     </div>
   </section>
 </section>
+
+  <!-- =========================
+     Calculator Modal
+========================= -->
+<div id="calculator-modal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <span class="modal-close" id="modal-close">&times;</span>
+    <h3 id="calc-plan-name">Plan Calculator</h3>
+
+    <form id="calc-form">
+      <label for="deposit">Enter Deposit ($):</label>
+      <input type="number" id="deposit" required min="0" />
+
+      <button type="submit" class="btn">Calculate</button>
+    </form>
+
+    <div id="calc-results" class="calc-results hidden">
+      <p><strong>Deposit:</strong> $<span id="result-deposit"></span></p>
+      <p><strong>Daily Rate:</strong> <span id="result-rate"></span>%</p>
+      <p><strong>Duration:</strong> <span id="result-duration"></span> days</p>
+      <p><strong>Referral Bonus:</strong> <span id="result-referral"></span>%</p>
+      <p><strong>Signup Bonus:</strong> $<span id="result-bonus"></span></p>
+      <hr />
+      <h4>Projected Return: $<span id="result-total"></span></h4>
+    </div>
+  </div>
+</div>
   
   <!-- Floating WhatsApp Chat -->  
   <div id="whatsapp-chat" data-aos="fade-up">  
