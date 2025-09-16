@@ -259,173 +259,151 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* =========================
-   Investment Plans Logic
-========================= */
-/* =========================
-   MODAL CALCULATOR LOGIC
-========================= */
+// =========================
+// Investment Plans Script
+// =========================
 
-const modal = document.getElementById("calculator-modal");
-const modalClose = document.getElementById("modal-close");
-const calcPlanName = document.getElementById("calc-plan-name");
+document.addEventListener("DOMContentLoaded", () => {
 
-const depositInput = document.getElementById("deposit");
-const calcForm = document.getElementById("calc-form");
-const calcResults = document.getElementById("calc-results");
+  // =========================
+  // Modal Elements
+  // =========================
+  const modal = document.getElementById("calculator-modal");
+  const modalClose = document.getElementById("modal-close");
+  const calcForm = document.getElementById("calc-form");
+  const depositInput = document.getElementById("deposit");
+  const calcResults = document.getElementById("calc-results");
+  const planNameEl = document.getElementById("calc-plan-name");
 
-const resultDeposit = document.getElementById("result-deposit");
-const resultRate = document.getElementById("result-rate");
-const resultDuration = document.getElementById("result-duration");
-const resultReferral = document.getElementById("result-referral");
-const resultBonus = document.getElementById("result-bonus");
-const resultTotal = document.getElementById("result-total");
+  const resultDeposit = document.getElementById("result-deposit");
+  const resultRate = document.getElementById("result-rate");
+  const resultDuration = document.getElementById("result-duration");
+  const resultReferral = document.getElementById("result-referral");
+  const resultBonus = document.getElementById("result-bonus");
+  const resultTotal = document.getElementById("result-total");
 
-let currentPlan = null;
+  let currentPlan = null;
 
-/* =========================
-   PLANS → MODAL TRIGGER
-========================= */
-document.querySelectorAll(".plan-cta").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    const card = e.target.closest(".plan-card");
-
-    currentPlan = {
-      name: card.dataset.plan,
-      min: parseFloat(card.dataset.min),
-      max: parseFloat(card.dataset.max),
-      rate: parseFloat(card.dataset.rate),
-      duration: parseInt(card.dataset.duration, 10),
-      referral: parseFloat(card.dataset.referral),
-      bonus: card.dataset.bonus ? parseFloat(card.dataset.bonus) : 0,
-    };
-
-    calcPlanName.textContent = `${currentPlan.name} Plan Calculator`;
-    depositInput.value = "";
-    calcResults.classList.add("hidden");
-
-    modal.setAttribute("aria-hidden", "false");
-  });
-});
-
-/* =========================
-   CLOSE MODAL
-========================= */
-modalClose.addEventListener("click", () => {
-  modal.setAttribute("aria-hidden", "true");
-});
-
-window.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    modal.setAttribute("aria-hidden", "true");
-  }
-});
-
-/* =========================
-   ROI CALCULATION
-========================= */
-function calculateROI(deposit, rate, duration, bonus = 0) {
-  let amount = deposit + bonus;
-  for (let i = 0; i < duration; i++) {
-    amount += amount * rate;
-  }
-  return amount.toFixed(2);
-}
-
-/* =========================
-   HANDLE FORM SUBMIT
-========================= */
-calcForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const deposit = parseFloat(depositInput.value);
-
-  if (!deposit || deposit < currentPlan.min || deposit > currentPlan.max) {
-    alert(`Deposit must be between $${currentPlan.min} and $${currentPlan.max}`);
-    return;
-  }
-
-  const total = calculateROI(deposit, currentPlan.rate, currentPlan.duration, currentPlan.bonus);
-
-  resultDeposit.textContent = deposit.toLocaleString();
-  resultRate.textContent = (currentPlan.rate * 100).toFixed(1);
-  resultDuration.textContent = currentPlan.duration;
-  resultReferral.textContent = currentPlan.referral;
-  resultBonus.textContent = currentPlan.bonus;
-  resultTotal.textContent = parseFloat(total).toLocaleString();
-
-  calcResults.classList.remove("hidden");
-});
-
-/* =========================
-   AUTO POPULATE COMPARISON TABLE
-========================= */
-const comparisonBody = document.getElementById("comparisonBody");
-if (comparisonBody) {
-  const sampleDeposits = [500, 10000, 25000, 60000, 250000];
-
-  const plans = Array.from(document.querySelectorAll(".plan-card")).map(card => ({
-    name: card.dataset.plan,
-    min: parseFloat(card.dataset.min),
-    max: parseFloat(card.dataset.max),
-    rate: parseFloat(card.dataset.rate),
-    duration: parseInt(card.dataset.duration, 10),
-    referral: parseFloat(card.dataset.referral),
-    bonus: card.dataset.bonus ? parseFloat(card.dataset.bonus) : 0,
-  }));
-
-  sampleDeposits.forEach(deposit => {
-    const row = document.createElement("tr");
-
-    // First column: Deposit value
-    const depositCell = document.createElement("td");
-    depositCell.textContent = `$${deposit.toLocaleString()}`;
-    row.appendChild(depositCell);
-
-    // Plan columns
-    plans.forEach(plan => {
-      const cell = document.createElement("td");
-      if (deposit >= plan.min && deposit <= plan.max) {
-        const roi = calculateROI(deposit, plan.rate, plan.duration, plan.bonus);
-        cell.textContent = `$${parseFloat(roi).toLocaleString()}`;
-        cell.style.fontWeight = "600";
-        cell.style.color = "var(--primary)";
-      } else {
-        cell.textContent = "—";
-        cell.style.color = "var(--muted)";
-      }
-      row.appendChild(cell);
+  // =========================
+  // Open Modal per Plan
+  // =========================
+  const planButtons = document.querySelectorAll(".plan-cta");
+  planButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".plan-card");
+      currentPlan = card.dataset;
+      planNameEl.textContent = `${currentPlan.plan} Plan Calculator`;
+      depositInput.value = "";
+      calcResults.classList.add("hidden");
+      modal.setAttribute("aria-hidden", "false");
+      modal.style.opacity = 0;
+      modal.style.display = "flex";
+      setTimeout(() => modal.style.opacity = 1, 20); // fade-in animation
     });
-
-    comparisonBody.appendChild(row);
   });
+
+  // =========================
+  // Close Modal
+  // =========================
+  modalClose.addEventListener("click", closeModal);
+  modal.addEventListener("click", e => {
+    if (e.target === modal) closeModal();
+  });
+
+  function closeModal() {
+    modal.style.opacity = 0;
+    setTimeout(() => {
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+    }, 300);
+  }
+
+  // =========================
+  // Calculator Logic
+  // =========================
+  calcForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const deposit = parseFloat(depositInput.value);
+    const min = parseFloat(currentPlan.min);
+    const max = parseFloat(currentPlan.max);
+
+    if (isNaN(deposit) || deposit < min || deposit > max) {
+      alert(`Please enter a deposit between $${min.toLocaleString()} and $${max.toLocaleString()}`);
+      return;
     }
 
-/* =========================
-   TOOLTIP DYNAMIC SETUP
-========================= */
-function addTooltip(element, text) {
-  const wrapper = document.createElement("span");
-  wrapper.classList.add("tooltip");
-  wrapper.style.display = "inline-block";
+    const rate = parseFloat(currentPlan.rate) * 100;
+    const duration = parseInt(currentPlan.duration);
+    const referral = parseFloat(currentPlan.referral) || 0;
+    const bonus = parseFloat(currentPlan.bonus) || 0;
 
-  const tooltipText = document.createElement("span");
-  tooltipText.classList.add("tooltip-text");
-  tooltipText.textContent = text;
+    // Compound interest calculation (daily)
+    let total = deposit;
+    for (let i = 0; i < duration; i++) {
+      total += total * parseFloat(currentPlan.rate);
+    }
+    total += bonus;
 
-  // Move element inside wrapper
-  element.parentNode.insertBefore(wrapper, element);
-  wrapper.appendChild(element);
-  wrapper.appendChild(tooltipText);
-}
+    // Populate results
+    resultDeposit.textContent = deposit.toLocaleString(undefined, {minimumFractionDigits:2});
+    resultRate.textContent = rate.toFixed(2);
+    resultDuration.textContent = duration;
+    resultReferral.textContent = referral;
+    resultBonus.textContent = bonus.toLocaleString(undefined, {minimumFractionDigits:2});
+    resultTotal.textContent = total.toLocaleString(undefined, {minimumFractionDigits:2});
 
-// Attach tooltips to results in modal
-if (resultReferral && resultBonus) {
-  addTooltip(resultReferral.parentNode, "Percentage reward for referring new investors.");
-  addTooltip(resultBonus.parentNode, "One-time signup bonus added to your deposit.");
-}
+    calcResults.classList.remove("hidden");
+  });
 
-// Attach tooltips to plan ribbons
-document.querySelectorAll(".plan-ribbon").forEach(ribbon => {
-  addTooltip(ribbon, "Plan tier indicating features and benefits.");
+  // =========================
+  // Comparison Table Population
+  // =========================
+  const plans = document.querySelectorAll(".plan-card");
+  const comparisonBody = document.getElementById("comparisonBody");
+
+  function populateComparison() {
+    const sampleDeposits = [500, 8000, 20000, 60000, 250000, 750000]; // Sample deposits
+    comparisonBody.innerHTML = "";
+
+    sampleDeposits.forEach(deposit => {
+      const row = document.createElement("tr");
+      const depositCell = document.createElement("td");
+      depositCell.textContent = `$${deposit.toLocaleString()}`;
+      row.appendChild(depositCell);
+
+      plans.forEach(plan => {
+        const planData = plan.dataset;
+        let total = parseFloat(deposit);
+        const min = parseFloat(planData.min);
+        const max = parseFloat(planData.max);
+
+        // Only calculate if deposit is within plan range
+        if (deposit >= min && deposit <= max) {
+          const duration = parseInt(planData.duration);
+          const rate = parseFloat(planData.rate);
+          const bonus = parseFloat(planData.bonus) || 0;
+          for (let i = 0; i < duration; i++) total += total * rate;
+          total += bonus;
+        } else {
+          total = "-";
+        }
+
+        const cell = document.createElement("td");
+        cell.textContent = typeof total === "number" ? `$${total.toLocaleString(undefined,{minimumFractionDigits:2})}` : "-";
+        row.appendChild(cell);
+      });
+
+      comparisonBody.appendChild(row);
+    });
+  }
+
+  populateComparison();
+
+  // =========================
+  // Smooth Modal Animation (optional: ESC key)
+  // =========================
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && modal.style.display === "flex") closeModal();
+  });
+
 });
