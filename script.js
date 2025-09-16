@@ -258,3 +258,154 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// =========================
+// Investment Plans Script
+// =========================
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('planModal');
+  const modalTitle = document.getElementById('planModalTitle');
+  const modalDeposit = document.getElementById('modalDeposit');
+  const modalPayout = document.getElementById('modalPayout');
+  const modalReferral = document.getElementById('modalReferral');
+  const modalBonus = document.getElementById('modalBonus');
+  const modalTerms = document.getElementById('modalTerms');
+  const modalClose = document.querySelector('.modal-close');
+  const planButtons = document.querySelectorAll('.plan-cta');
+
+  // Format numbers as currency
+  function formatCurrency(n) {
+    return Number(n).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  }
+
+  // Compounding formula: principal × (1 + r)^days
+  function compoundAmount(principal, dailyRate, days) {
+    return principal * Math.pow(1 + dailyRate, days);
+  }
+
+  // Open Modal and populate with data
+  function openModal(planEl) {
+    const name = planEl.getAttribute('data-plan');
+    const min = Number(planEl.getAttribute('data-min'));
+    const max = Number(planEl.getAttribute('data-max'));
+    const rate = Number(planEl.getAttribute('data-rate'));
+    const duration = Number(planEl.getAttribute('data-duration'));
+    const referral = Number(planEl.getAttribute('data-referral')) || 0;
+    const bonus = Number(planEl.getAttribute('data-bonus')) || 0;
+
+    modal.setAttribute('aria-hidden', 'false');
+    modalTitle.textContent = `${name} Plan — Details`;
+
+    modalDeposit.value = min;
+    modalReferral.textContent = `${referral}%`;
+    modalBonus.textContent = formatCurrency(bonus);
+
+    modalTerms.textContent = `${name} Plan — Minimum deposit ${formatCurrency(min)}. Duration: ${duration} days. Daily interest: ${(rate*100).toFixed(2)}% compounded. Referral: ${referral}%. See Risk Disclosure.`;
+
+    // Initial payout
+    const payout = compoundAmount(min, rate, duration);
+    modalPayout.textContent = formatCurrency(payout);
+
+    // Update payout when user changes deposit
+    modalDeposit.oninput = () => {
+      let val = Number(modalDeposit.value);
+      if (isNaN(val) || val < min) val = min;
+      if (val > max) val = max;
+
+      const payoutCalc = compoundAmount(val, rate, duration);
+      modalPayout.textContent = formatCurrency(payoutCalc);
+    };
+  }
+
+  // Attach event to plan buttons
+  planButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const card = e.currentTarget.closest('.plan-card');
+      if (card) openModal(card);
+    });
+  });
+
+  // Close modal
+  modalClose.addEventListener('click', () => {
+    modal.setAttribute('aria-hidden', 'true');
+  });
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      modal.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  // Accessibility: open modal with Enter key
+  document.querySelectorAll('.plan-card').forEach(card => {
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') openModal(card);
+    });
+  });
+
+  // Desktop hover parallax effect
+  if (window.innerWidth >= 992) {
+    document.querySelectorAll('.plan-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) - rect.width/2;
+        const y = (e.clientY - rect.top) - rect.height/2;
+        card.style.transform = `translateY(-8px) rotateX(${(y/rect.height)*2}deg) rotateY(${(x/rect.width)*2}deg) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+});
+
+// =========================
+  // Count-up Animation Helper
+  // =========================
+  function animateCountUp(el, start, end, duration = 1200) {
+    const range = end - start;
+    let startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const value = start + range * progress;
+      el.textContent = formatCurrency(value.toFixed(2));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  // =========================
+  // Comparison Table Builder
+  // =========================
+  const comparisonBody = document.getElementById('comparisonBody');
+  if (comparisonBody) {
+    const deposits = [500, 1000, 5000, 10000]; // sample deposits
+    const plans = Array.from(document.querySelectorAll('.plan-card')).map(card => ({
+      name: card.getAttribute('data-plan'),
+      rate: Number(card.getAttribute('data-rate')),
+      duration: Number(card.getAttribute('data-duration'))
+    }));
+
+    deposits.forEach(dep => {
+      const row = document.createElement('tr');
+      const depCell = document.createElement('td');
+      depCell.textContent = formatCurrency(dep);
+      row.appendChild(depCell);
+
+      plans.forEach(plan => {
+        const payout = compoundAmount(dep, plan.rate, plan.duration);
+        const cell = document.createElement('td');
+        // animate count-up (start at dep, grow to payout)
+        animateCountUp(cell, dep, payout, 1500);
+        row.appendChild(cell);
+      });
+
+      comparisonBody.appendChild(row);
+    });
+  }
