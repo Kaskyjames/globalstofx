@@ -259,151 +259,348 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// =========================
-// Investment Plans Script
-// =========================
+/* ================================
+   Investment Plans Script
+================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
+// Plan data from HTML data attributes
+const plans = Array.from(document.querySelectorAll(".plan-card")).map(card => ({
+  name: card.dataset.plan,
+  min: parseFloat(card.dataset.min),
+  max: parseFloat(card.dataset.max),
+  rate: parseFloat(card.dataset.rate),
+  duration: parseInt(card.dataset.duration),
+  referral: parseFloat(card.dataset.referral),
+  bonus: card.dataset.bonus ? parseFloat(card.dataset.bonus) : 0
+}));
 
-  // =========================
-  // Modal Elements
-  // =========================
-  const modal = document.getElementById("calculator-modal");
-  const modalClose = document.getElementById("modal-close");
-  const calcForm = document.getElementById("calc-form");
-  const depositInput = document.getElementById("deposit");
-  const calcResults = document.getElementById("calc-results");
-  const planNameEl = document.getElementById("calc-plan-name");
+/* ================================
+   Calculator Modal
+================================ */
+const modal = document.createElement("div");
+modal.classList.add("calc-modal");
+modal.innerHTML = `
+  <div class="calc-content">
+    <span class="calc-close">&times;</span>
+    <h3 id="calc-title">Plan Calculator</h3>
+    <p id="calc-range"></p>
+    <label for="calc-amount">Enter Deposit ($):</label>
+    <input type="number" id="calc-amount" min="0" />
+    <button id="calc-btn">Calculate</button>
+    <div id="calc-result"></div>
+  </div>
+`;
+document.body.appendChild(modal);
 
-  const resultDeposit = document.getElementById("result-deposit");
-  const resultRate = document.getElementById("result-rate");
-  const resultDuration = document.getElementById("result-duration");
-  const resultReferral = document.getElementById("result-referral");
-  const resultBonus = document.getElementById("result-bonus");
-  const resultTotal = document.getElementById("result-total");
+const modalClose = modal.querySelector(".calc-close");
+const modalTitle = modal.querySelector("#calc-title");
+const modalRange = modal.querySelector("#calc-range");
+const modalAmount = modal.querySelector("#calc-amount");
+const modalBtn = modal.querySelector("#calc-btn");
+const modalResult = modal.querySelector("#calc-result");
 
-  let currentPlan = null;
+let activePlan = null;
 
-  // =========================
-  // Open Modal per Plan
-  // =========================
-  const planButtons = document.querySelectorAll(".plan-cta");
-  planButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const card = btn.closest(".plan-card");
-      currentPlan = card.dataset;
-      planNameEl.textContent = `${currentPlan.plan} Plan Calculator`;
-      depositInput.value = "";
-      calcResults.classList.add("hidden");
-      modal.setAttribute("aria-hidden", "false");
-      modal.style.opacity = 0;
-      modal.style.display = "flex";
-      setTimeout(() => modal.style.opacity = 1, 20); // fade-in animation
-    });
+// Open modal when "View calculator" clicked
+document.querySelectorAll(".plan-cta").forEach((btn, index) => {
+  btn.addEventListener("click", () => {
+    activePlan = plans[index];
+    modal.style.display = "flex";
+    modalTitle.textContent = `${activePlan.name} Plan Calculator`;
+    modalRange.textContent = `Range: $${activePlan.min.toLocaleString()} - $${activePlan.max.toLocaleString()}`;
+    modalAmount.value = "";
+    modalResult.innerHTML = "";
   });
-
-  // =========================
-  // Close Modal
-  // =========================
-  modalClose.addEventListener("click", closeModal);
-  modal.addEventListener("click", e => {
-    if (e.target === modal) closeModal();
-  });
-
-  function closeModal() {
-    modal.style.opacity = 0;
-    setTimeout(() => {
-      modal.style.display = "none";
-      modal.setAttribute("aria-hidden", "true");
-    }, 300);
-  }
-
-  // =========================
-  // Calculator Logic
-  // =========================
-  calcForm.addEventListener("submit", e => {
-    e.preventDefault();
-    const deposit = parseFloat(depositInput.value);
-    const min = parseFloat(currentPlan.min);
-    const max = parseFloat(currentPlan.max);
-
-    if (isNaN(deposit) || deposit < min || deposit > max) {
-      alert(`Please enter a deposit between $${min.toLocaleString()} and $${max.toLocaleString()}`);
-      return;
-    }
-
-    const rate = parseFloat(currentPlan.rate) * 100;
-    const duration = parseInt(currentPlan.duration);
-    const referral = parseFloat(currentPlan.referral) || 0;
-    const bonus = parseFloat(currentPlan.bonus) || 0;
-
-    // Compound interest calculation (daily)
-    let total = deposit;
-    for (let i = 0; i < duration; i++) {
-      total += total * parseFloat(currentPlan.rate);
-    }
-    total += bonus;
-
-    // Populate results
-    resultDeposit.textContent = deposit.toLocaleString(undefined, {minimumFractionDigits:2});
-    resultRate.textContent = rate.toFixed(2);
-    resultDuration.textContent = duration;
-    resultReferral.textContent = referral;
-    resultBonus.textContent = bonus.toLocaleString(undefined, {minimumFractionDigits:2});
-    resultTotal.textContent = total.toLocaleString(undefined, {minimumFractionDigits:2});
-
-    calcResults.classList.remove("hidden");
-  });
-
-  // =========================
-  // Comparison Table Population
-  // =========================
-  const plans = document.querySelectorAll(".plan-card");
-  const comparisonBody = document.getElementById("comparisonBody");
-
-  function populateComparison() {
-    const sampleDeposits = [500, 8000, 20000, 60000, 250000, 750000]; // Sample deposits
-    comparisonBody.innerHTML = "";
-
-    sampleDeposits.forEach(deposit => {
-      const row = document.createElement("tr");
-      const depositCell = document.createElement("td");
-      depositCell.textContent = `$${deposit.toLocaleString()}`;
-      row.appendChild(depositCell);
-
-      plans.forEach(plan => {
-        const planData = plan.dataset;
-        let total = parseFloat(deposit);
-        const min = parseFloat(planData.min);
-        const max = parseFloat(planData.max);
-
-        // Only calculate if deposit is within plan range
-        if (deposit >= min && deposit <= max) {
-          const duration = parseInt(planData.duration);
-          const rate = parseFloat(planData.rate);
-          const bonus = parseFloat(planData.bonus) || 0;
-          for (let i = 0; i < duration; i++) total += total * rate;
-          total += bonus;
-        } else {
-          total = "-";
-        }
-
-        const cell = document.createElement("td");
-        cell.textContent = typeof total === "number" ? `$${total.toLocaleString(undefined,{minimumFractionDigits:2})}` : "-";
-        row.appendChild(cell);
-      });
-
-      comparisonBody.appendChild(row);
-    });
-  }
-
-  populateComparison();
-
-  // =========================
-  // Smooth Modal Animation (optional: ESC key)
-  // =========================
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && modal.style.display === "flex") closeModal();
-  });
-
 });
+
+// Close modal
+modalClose.addEventListener("click", () => (modal.style.display = "none"));
+window.addEventListener("click", e => {
+  if (e.target === modal) modal.style.display = "none";
+});
+
+// Handle calculation
+modalBtn.addEventListener("click", () => {
+  const deposit = parseFloat(modalAmount.value);
+  if (isNaN(deposit) || deposit < activePlan.min || deposit > activePlan.max) {
+    modalResult.innerHTML = `<p style="color:red">Please enter between $${activePlan.min.toLocaleString()} and $${activePlan.max.toLocaleString()}.</p>`;
+    return;
+  }
+
+  // Compound calculation
+  let finalAmount = deposit;
+  for (let i = 0; i < activePlan.duration; i++) {
+    finalAmount *= 1 + activePlan.rate;
+  }
+  finalAmount += activePlan.bonus;
+
+  modalResult.innerHTML = `
+    <p><strong>Projected ROI:</strong></p>
+    <p>Initial: $${deposit.toLocaleString()}</p>
+    <p>Final: $${finalAmount.toFixed(2).toLocaleString()}</p>
+    <p>Referral Bonus: ${activePlan.referral}%</p>
+    ${activePlan.bonus ? `<p>Signup Bonus: $${activePlan.bonus}</p>` : ""}
+  `;
+});
+
+/* ================================
+   Comparison Table
+================================ */
+const sampleDeposits = [500, 5000, 50000, 200000];
+const comparisonBody = document.getElementById("comparisonBody");
+
+function calculateROI(deposit, plan) {
+  if (deposit < plan.min) return "-";
+  let finalAmount = deposit;
+  for (let i = 0; i < plan.duration; i++) {
+    finalAmount *= 1 + plan.rate;
+  }
+  finalAmount += plan.bonus;
+  return `$${finalAmount.toFixed(2).toLocaleString()}`;
+}
+
+function populateComparisonTable() {
+  comparisonBody.innerHTML = "";
+  sampleDeposits.forEach(deposit => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>$${deposit.toLocaleString()}</td>
+      ${plans.map(plan => `<td>${calculateROI(deposit, plan)}</td>`).join("")}
+    `;
+    comparisonBody.appendChild(row);
+  });
+}
+
+populateComparisonTable();
+
+/* ================================
+   Modal Styling (inline injection)
+   - keeps your CSS clean
+================================ */
+const modalStyle = document.createElement("style");
+modalStyle.textContent = `
+.calc-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.calc-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.calc-close {
+  position: absolute;
+  right: 20px; top: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+#calc-amount {
+  width: 100%;
+  padding: 0.6rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+#calc-btn {
+  background: linear-gradient(135deg, #0b2c7d, #1a4dbe);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#calc-btn:hover {
+  background: linear-gradient(135deg, #091f5c, #133c9b);
+}
+#calc-result p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+`;
+document.head.appendChild(modalStyle);x.setAttribute("aria-hidden", "true");
+    }
+  });
+});
+
+
+/* ================================
+   Investment Plans Script
+================================ */
+
+// Plan data from HTML data attributes
+const plans = Array.from(document.querySelectorAll(".plan-card")).map(card => ({
+  name: card.dataset.plan,
+  min: parseFloat(card.dataset.min),
+  max: parseFloat(card.dataset.max),
+  rate: parseFloat(card.dataset.rate),
+  duration: parseInt(card.dataset.duration),
+  referral: parseFloat(card.dataset.referral),
+  bonus: card.dataset.bonus ? parseFloat(card.dataset.bonus) : 0
+}));
+
+/* ================================
+   Calculator Modal
+================================ */
+const modal = document.createElement("div");
+modal.classList.add("calc-modal");
+modal.innerHTML = `
+  <div class="calc-content">
+    <span class="calc-close">&times;</span>
+    <h3 id="calc-title">Plan Calculator</h3>
+    <p id="calc-range"></p>
+    <label for="calc-amount">Enter Deposit ($):</label>
+    <input type="number" id="calc-amount" min="0" />
+    <button id="calc-btn">Calculate</button>
+    <div id="calc-result"></div>
+  </div>
+`;
+document.body.appendChild(modal);
+
+const modalClose = modal.querySelector(".calc-close");
+const modalTitle = modal.querySelector("#calc-title");
+const modalRange = modal.querySelector("#calc-range");
+const modalAmount = modal.querySelector("#calc-amount");
+const modalBtn = modal.querySelector("#calc-btn");
+const modalResult = modal.querySelector("#calc-result");
+
+let activePlan = null;
+
+// Open modal when "View calculator" clicked
+document.querySelectorAll(".plan-cta").forEach((btn, index) => {
+  btn.addEventListener("click", () => {
+    activePlan = plans[index];
+    modal.style.display = "flex";
+    modalTitle.textContent = `${activePlan.name} Plan Calculator`;
+    modalRange.textContent = `Range: $${activePlan.min.toLocaleString()} - $${activePlan.max.toLocaleString()}`;
+    modalAmount.value = "";
+    modalResult.innerHTML = "";
+  });
+});
+
+// Close modal
+modalClose.addEventListener("click", () => (modal.style.display = "none"));
+window.addEventListener("click", e => {
+  if (e.target === modal) modal.style.display = "none";
+});
+
+// Handle calculation
+modalBtn.addEventListener("click", () => {
+  const deposit = parseFloat(modalAmount.value);
+  if (isNaN(deposit) || deposit < activePlan.min || deposit > activePlan.max) {
+    modalResult.innerHTML = `<p style="color:red">Please enter between $${activePlan.min.toLocaleString()} and $${activePlan.max.toLocaleString()}.</p>`;
+    return;
+  }
+
+  // Compound calculation
+  let finalAmount = deposit;
+  for (let i = 0; i < activePlan.duration; i++) {
+    finalAmount *= 1 + activePlan.rate;
+  }
+  finalAmount += activePlan.bonus;
+
+  modalResult.innerHTML = `
+    <p><strong>Projected ROI:</strong></p>
+    <p>Initial: $${deposit.toLocaleString()}</p>
+    <p>Final: $${finalAmount.toFixed(2).toLocaleString()}</p>
+    <p>Referral Bonus: ${activePlan.referral}%</p>
+    ${activePlan.bonus ? `<p>Signup Bonus: $${activePlan.bonus}</p>` : ""}
+  `;
+});
+
+/* ================================
+   Comparison Table
+================================ */
+const sampleDeposits = [500, 5000, 50000, 200000];
+const comparisonBody = document.getElementById("comparisonBody");
+
+function calculateROI(deposit, plan) {
+  if (deposit < plan.min) return "-";
+  let finalAmount = deposit;
+  for (let i = 0; i < plan.duration; i++) {
+    finalAmount *= 1 + plan.rate;
+  }
+  finalAmount += plan.bonus;
+  return `$${finalAmount.toFixed(2).toLocaleString()}`;
+}
+
+function populateComparisonTable() {
+  comparisonBody.innerHTML = "";
+  sampleDeposits.forEach(deposit => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>$${deposit.toLocaleString()}</td>
+      ${plans.map(plan => `<td>${calculateROI(deposit, plan)}</td>`).join("")}
+    `;
+    comparisonBody.appendChild(row);
+  });
+}
+
+populateComparisonTable();
+
+/* ================================
+   Modal Styling (inline injection)
+   - keeps your CSS clean
+================================ */
+const modalStyle = document.createElement("style");
+modalStyle.textContent = `
+.calc-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.calc-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.calc-close {
+  position: absolute;
+  right: 20px; top: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+#calc-amount {
+  width: 100%;
+  padding: 0.6rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+#calc-btn {
+  background: linear-gradient(135deg, #0b2c7d, #1a4dbe);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#calc-btn:hover {
+  background: linear-gradient(135deg, #091f5c, #133c9b);
+}
+#calc-result p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+`;
+document.head.appendChild(modalStyle);
