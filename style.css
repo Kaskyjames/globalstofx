@@ -1012,201 +1012,225 @@ Services Section
 /* =========================
    Investment Plans Cards
 ========================= */
-/* =========================
-   Global Styles
-========================= */
-body {
-  font-family: 'Inter', sans-serif;
-  color: #1e1e2f;
-  background-color: #f5f7fa;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
+/* ===============================
+   Global Section Styles
+================================ */
+.section {
+  padding: 4rem 1rem;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
 }
 
-.section {
-  padding: 4rem 0;
-}
-
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #0b2c7d; /* Dark blue */
-  text-align: center;
-}
-
-.section-subtitle {
-  font-size: 1.1rem;
-  color: #27418f; /* Slightly lighter for subtitles */
+/* ===============================
+   Section Header
+================================ */
+.section-header {
   text-align: center;
   margin-bottom: 3rem;
 }
 
-/* =========================
-   Plans Grid
-========================= */
-.plans-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0b2c7d; /* deep dark blue */
+  margin-bottom: 0.5rem;
 }
 
-/* =========================
-   Plan Card
-========================= */
+.section-subtitle {
+  color: #555;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ===============================
+   Plans Grid
+================================ */
+.plans-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* ===============================
+   Plan Cards
+================================ */
 .plan-card {
   background: url("images/stats.webp") center/cover no-repeat;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  padding: 2rem 1.5rem 2.5rem;
+  color: #fff;
+  border-radius: 1.25rem;
+  padding: 2rem 1.5rem;
   position: relative;
-  transition: transform 0.3s, box-shadow 0.3s;
-  color: #1e1e2f;
-  background-color: #fff; /* fallback */
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .plan-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
 }
 
-/* Ribbon */
+/* Plan Ribbon */
 .plan-ribbon {
   position: absolute;
-  top: 20px;
-  left: -10px;
-  background: linear-gradient(135deg, #0b2c7d, #1a4dbe);
+  top: 0;
+  left: 0;
+  background: #0b2c7d;
   color: #fff;
-  font-weight: 700;
-  padding: 0.5rem 1.2rem;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-bottom-right-radius: 1rem;
 }
 
-/* Plan Titles */
+/* Plan Range */
 .plan-range {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  margin: 1.5rem 0 0.5rem;
-  color: #0b2c7d;
-  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
 }
 
+/* Plan Subtitle */
 .plan-sub {
   font-size: 0.95rem;
-  color: #27418f;
-  text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
+  opacity: 0.9;
 }
 
 /* Plan Features */
 .plan-features {
   list-style: none;
   padding: 0;
-  margin-bottom: 1.8rem;
+  margin: 1.5rem 0;
 }
 
 .plan-features li {
-  padding: 0.6rem 0;
-  border-bottom: 1px solid #e5e9f2;
+  margin: 0.6rem 0;
   font-size: 0.95rem;
-  color: #3a4665;
-}
-
-.plan-features li:last-child {
-  border-bottom: none;
 }
 
 /* CTA Button */
 .plan-cta {
-  display: block;
-  width: 100%;
-  padding: 0.9rem 0;
   background: linear-gradient(135deg, #0b2c7d, #1a4dbe);
   color: #fff;
-  font-weight: 600;
   border: none;
-  border-radius: 12px;
-  cursor: pointer;
+  padding: 0.75rem 1.5rem;
   font-size: 1rem;
-  transition: all 0.3s ease;
-  text-align: center;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .plan-cta:hover {
   background: linear-gradient(135deg, #091f5c, #133c9b);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(11, 44, 125, 0.3);
 }
 
-/* =========================
-   Comparison Table
-========================= */
-.comparison-section {
-  margin-top: 5rem;
+/* ===============================
+   Modal Styles
+================================ */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.comparison-table-wrapper {
-  overflow-x: auto;
-  margin-top: 2rem;
-}
-
-.comparison-table {
-  width: 100%;
-  border-collapse: collapse;
+.modal-content {
   background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.comparison-table th,
-.comparison-table td {
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.95rem;
+.modal h3 {
+  margin-bottom: 1rem;
   color: #0b2c7d;
-  border-bottom: 1px solid #e5e9f2;
 }
 
-.comparison-table thead {
-  background: #e5e9f2;
+.modal label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.modal input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.modal button {
+  display: inline-block;
+  width: 100%;
+  background: linear-gradient(135deg, #0b2c7d, #1a4dbe);
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
-.comparison-table tbody tr:hover {
-  background: #f5f7fa;
+.modal button:hover {
+  background: linear-gradient(135deg, #091f5c, #133c9b);
 }
 
-.risk-note {
-  text-align: center;
-  font-size: 0.9rem;
-  color: #555;
-  margin-top: 1.5rem;
+/* Modal Close */
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
 }
 
-/* =========================
+/* Modal Results */
+.calc-results {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8f9fc;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.calc-results h4 {
+  margin-top: 1rem;
+  color: #0b2c7d;
+}
+
+/* Hidden Utility */
+.hidden {
+  display: none;
+}
+
+/* ===============================
    Responsive
-========================= */
+================================ */
 @media (max-width: 768px) {
   .plans-grid {
     grid-template-columns: 1fr;
   }
 
-  .plan-features li {
-    font-size: 0.9rem;
+  .plan-card {
+    padding: 1.5rem;
   }
-
-  .plan-range {
-    font-size: 1.3rem;
-  }
-   }
+}
