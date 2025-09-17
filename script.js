@@ -280,46 +280,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentPlan = null;
 
+  // Open modal
+  function openModal(plan) {
+    currentPlan = plan;
+
+    // Update modal title
+    calcPlanName.textContent = `${currentPlan.name} Plan Calculator`;
+
+    // Reset form & results
+    calcForm.reset();
+    calcResults.classList.add("hidden");
+
+    // Add show class for fade-in
+    modal.classList.add("show");
+    modal.setAttribute("aria-hidden", "false");
+  }
+
+  // Close modal
+  function closeModal() {
+    modal.classList.remove("show");
+    modal.setAttribute("aria-hidden", "true");
+
+    // Wait for animation to end before fully hiding
+    setTimeout(() => {
+      if (!modal.classList.contains("show")) {
+        modal.style.display = "none";
+      }
+    }, 400); // matches CSS transition duration
+  }
+
   // Open modal when clicking "View Calculator"
   document.querySelectorAll(".plan-cta").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const card = e.target.closest(".plan-card");
 
-      // Get plan details from data attributes
-      currentPlan = {
+      // Extract plan details
+      const plan = {
         name: card.dataset.plan,
         min: parseFloat(card.dataset.min),
         max: parseFloat(card.dataset.max),
-        rate: parseFloat(card.dataset.rate), // decimal (e.g., 0.02 = 2%)
+        rate: parseFloat(card.dataset.rate),
         duration: parseInt(card.dataset.duration),
         referral: parseFloat(card.dataset.referral) || 0,
         bonus: parseFloat(card.dataset.bonus) || 0,
       };
 
-      // Update modal title
-      calcPlanName.textContent = `${currentPlan.name} Plan Calculator`;
-
-      // Reset form & results
-      calcForm.reset();
-      calcResults.classList.add("hidden");
-
-      // Show modal
-      modal.style.display = "block";
-      modal.setAttribute("aria-hidden", "false");
+      modal.style.display = "block"; // make modal available in DOM
+      requestAnimationFrame(() => openModal(plan)); // trigger fade-in
     });
   });
 
-  // Close modal
-  closeModalBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-  });
+  // Close modal button
+  closeModalBtn.addEventListener("click", closeModal);
 
   // Close modal when clicking outside content
   window.addEventListener("click", (e) => {
     if (e.target === modal) {
-      modal.style.display = "none";
-      modal.setAttribute("aria-hidden", "true");
+      closeModal();
     }
   });
 
@@ -335,7 +352,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Validate deposit within plan range
     if (deposit < currentPlan.min || deposit > currentPlan.max) {
       alert(
         `Deposit must be between $${currentPlan.min.toLocaleString()} and $${currentPlan.max.toLocaleString()} for the ${currentPlan.name} plan.`
