@@ -1291,13 +1291,28 @@ Responsive
 }
 
 /* =========================
-   Comparison Section Styles
+   GLOBAL VARIABLES COMPARISON SECTION 
+========================= */
+:root {
+  --primary: #0a2342;        /* Dark corporate blue */
+  --secondary: #1d3557;      /* Secondary deep blue */
+  --accent: #0077b6;         /* Accent / link blue */
+  --text-dark: #222;
+  --text-light: #f8f9fa;
+  --muted: #6c757d;
+  --border: #e0e6ed;
+  --background: #f9fbfd;
+  --shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 12px;
+  --transition: all 0.3s ease;
+}
+
+/* =========================
+   SECTION LAYOUT
 ========================= */
 .comparison-section {
-  background: #0a1931; /* deep navy */
-  color: #e5e7eb;
-  padding: 5rem 2rem;
-  position: relative;
+  background: var(--background);
+  padding: 80px 20px;
 }
 
 .comparison-section .container {
@@ -1305,119 +1320,123 @@ Responsive
   margin: 0 auto;
 }
 
-/* Section header */
-.comparison-section .section-header {
+/* =========================
+   HEADER
+========================= */
+.section-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 50px;
 }
 
-.comparison-section .section-title {
+.section-title {
   font-size: 2.2rem;
   font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 1rem;
+  color: var(--primary);
+  margin-bottom: 15px;
 }
 
-.comparison-section .section-subtitle {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: #d1d5db;
-  max-width: 750px;
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 720px;
   margin: 0 auto;
+  line-height: 1.6;
 }
 
-/* Table wrapper */
+/* =========================
+   TABLE STYLING
+========================= */
 .comparison-table-wrapper {
   overflow-x: auto;
-  background: #ffffff;
-  border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  margin-bottom: 2.5rem;
-  transition: transform 0.3s ease;
+  background: var(--text-light);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
-.comparison-table-wrapper:hover {
-  transform: scale(1.01);
-}
-
-/* Table */
 .comparison-table {
   width: 100%;
   border-collapse: collapse;
-  text-align: center;
-  font-size: 0.95rem;
-  border-radius: 1rem;
-  overflow: hidden;
+  min-width: 800px;
 }
 
 .comparison-table thead {
-  background: #2563eb; /* primary blue */
-  color: #fff;
+  background: var(--secondary);
+  color: var(--text-light);
 }
 
 .comparison-table thead th {
-  padding: 1.2rem 0.8rem;
-  font-size: 1rem;
+  padding: 16px 20px;
   font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+  font-size: 1rem;
 }
 
 .comparison-table tbody tr {
-  border-bottom: 1px solid #e5e7eb;
-  transition: background 0.2s ease;
-}
-
-.comparison-table tbody tr:nth-child(even) {
-  background: #f9fafb;
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
 }
 
 .comparison-table tbody tr:hover {
-  background: #eef2ff;
+  background: #eef6ff;
 }
 
-.comparison-table tbody td {
-  padding: 1rem 0.8rem;
-  color: #111827;
-  font-weight: 500;
+.comparison-table td {
+  padding: 14px 20px;
+  font-size: 0.95rem;
+  color: var(--text-dark);
 }
 
-/* Risk note */
-.risk-note {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #d1d5db;
+/* =========================
+   RISK DISCLAIMER
+========================= */
+.disclaimer {
+  margin-top: 30px;
   text-align: center;
-  max-width: 800px;
+}
+
+.risk-note {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 850px;
   margin: 0 auto;
 }
 
+.risk-note strong {
+  color: var(--primary);
+}
+
 .risk-note a {
-  color: #60a5fa;
-  font-weight: 600;
-  text-decoration: underline;
-  transition: color 0.2s ease;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
 }
 
 .risk-note a:hover {
-  color: #93c5fd;
+  text-decoration: underline;
 }
 
-/* Responsive adjustments */
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
 @media (max-width: 768px) {
-  .comparison-section {
-    padding: 3rem 1rem;
+  .section-title {
+    font-size: 1.8rem;
   }
 
-  .comparison-section .section-title {
-    font-size: 1.6rem;
+  .section-subtitle {
+    font-size: 1rem;
+    padding: 0 10px;
   }
 
-  .comparison-section .section-subtitle {
-    font-size: 0.95rem;
+  .comparison-table thead {
+    font-size: 0.9rem;
   }
 
-  .comparison-table thead th,
-  .comparison-table tbody td {
+  .comparison-table td {
     font-size: 0.85rem;
-    padding: 0.8rem 0.5rem;
+    padding: 12px 14px;
   }
 }
