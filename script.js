@@ -377,3 +377,80 @@ document.addEventListener("DOMContentLoaded", () => {
     calcResults.classList.remove("hidden");
   });
 });
+
+/* =========================
+   Investment Comparison Script
+========================= */
+
+// Plan definitions (matching your HTML dataset attributes)
+const plans = [
+  { name: "Starter", rate: 0.015, duration: 5, referral: 2, bonus: 0 },
+  { name: "Corporate", rate: 0.02, duration: 5, referral: 5, bonus: 0 },
+  { name: "Archive", rate: 0.03, duration: 5, referral: 5, bonus: 0 },
+  { name: "Family", rate: 0.05, duration: 7, referral: 5, bonus: 0 },
+  { name: "Mentorship", rate: 0.08, duration: 14, referral: 10, bonus: 100 },
+  { name: "Savings", rate: 0.05, duration: 180, referral: 10, bonus: 500 },
+];
+
+// Sample deposits to display
+const sampleDeposits = [500, 5000, 20000, 100000, 250000, 500000];
+
+// Compounding function
+function calculateCompounded(deposit, rate, days, bonus = 0) {
+  const finalAmount = deposit * Math.pow(1 + rate, days) + bonus;
+  return finalAmount.toFixed(2);
+}
+
+// Populate the table
+function populateComparisonTable() {
+  const tbody = document.getElementById("comparisonBody");
+  tbody.innerHTML = "";
+
+  sampleDeposits.forEach((deposit, index) => {
+    const tr = document.createElement("tr");
+
+    // Deposit column
+    const depositTd = document.createElement("td");
+    depositTd.textContent = `$${deposit.toLocaleString()}`;
+    tr.appendChild(depositTd);
+
+    // Each plan's projection
+    plans.forEach(plan => {
+      const td = document.createElement("td");
+      const result = calculateCompounded(deposit, plan.rate, plan.duration, plan.bonus);
+      td.textContent = `$${Number(result).toLocaleString()}`;
+      td.style.fontWeight = "600";
+      td.style.color = "#2563eb";
+      tr.appendChild(td);
+    });
+
+    // Animate row insertion
+    tr.style.opacity = "0";
+    tr.style.transform = "translateY(20px)";
+    setTimeout(() => {
+      tr.style.transition = "all 0.6s ease";
+      tr.style.opacity = "1";
+      tr.style.transform = "translateY(0)";
+    }, 150 * index);
+
+    tbody.appendChild(tr);
+  });
+}
+
+// Trigger population on scroll into view
+function initComparisonObserver() {
+  const section = document.getElementById("plan-comparison");
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      populateComparisonTable();
+      observer.disconnect(); // Run once
+    }
+  }, { threshold: 0.3 });
+
+  observer.observe(section);
+}
+
+// Init
+document.addEventListener("DOMContentLoaded", () => {
+  initComparisonObserver();
+});
