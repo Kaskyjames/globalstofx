@@ -417,40 +417,50 @@
   </section>
   
     <!-- =========================
-       Investment Comparison Section
-    ========================= -->
-    <section class="comparison-section" data-aos="fade-up" data-aos-delay="200">
-      <div class="container">
-        <header class="section-header">
-          <h2 class="section-title">Plan Comparison</h2>
-          <p class="section-subtitle">Projected ROI for sample deposits (compounded)</p>
-        </header>
+   Investment Comparison Section
+========================= -->
+<section class="comparison-section" id="plan-comparison" aria-labelledby="comparison-title" data-aos="fade-up" data-aos-delay="200">
+  <div class="container">
 
-        <div class="comparison-table-wrapper" data-aos="fade-up" data-aos-delay="400">
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th>Deposit</th>
-                <th>Starter</th>
-                <th>Corporate</th>
-                <th>Archive</th>
-                <th>Family</th>
-                <th>Mentorship</th>
-                <th>Savings</th>
-              </tr>
-            </thead>
-            <tbody id="comparisonBody">
-              <!-- Dynamically populated -->
-            </tbody>
-          </table>
-        </div>
+    <!-- Section Header -->
+    <header class="section-header">
+      <h2 class="section-title" id="comparison-title">Plan Comparison Overview</h2>
+      <p class="section-subtitle">
+        A side-by-side look at potential returns across our investment plans 
+        based on sample deposits. Figures are calculated with compounding 
+        for illustration purposes only.
+      </p>
+    </header>
 
-        <p class="risk-note" data-aos="fade-up" data-aos-delay="500">
-          All investments carry risk including possible total loss. 
-          <a href="/docs/risk-disclosure.pdf" target="_blank">See full disclosure →</a>
-        </p>
-      </div>
-    </section>
+    <!-- Comparison Table -->
+    <div class="comparison-table-wrapper" data-aos="fade-up" data-aos-delay="400">
+      <table class="comparison-table" role="table" aria-describedby="comparison-note">
+        <thead>
+          <tr>
+            <th scope="col">Deposit Amount</th>
+            <th scope="col">Starter</th>
+            <th scope="col">Corporate</th>
+            <th scope="col">Archive</th>
+            <th scope="col">Family</th>
+            <th scope="col">Mentorship</th>
+            <th scope="col">Savings</th>
+          </tr>
+        </thead>
+        <tbody id="comparisonBody">
+          <!-- Dynamically populated via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Risk Disclaimer -->
+    <p class="risk-note" id="comparison-note" data-aos="fade-up" data-aos-delay="500">
+      <strong>Important Notice:</strong> Past performance is not indicative of future results. 
+      All investments involve risk, including the potential loss of principal. 
+      Please read our 
+      <a href="/docs/risk-disclosure.pdf" target="_blank" rel="noopener noreferrer">
+        full Risk Disclosure
+      </a> before making investment decisions.
+    </p>
   </div>
 </section>
   
