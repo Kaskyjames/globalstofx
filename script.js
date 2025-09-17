@@ -378,108 +378,61 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* ================================================
-   GlobalstoxFX - Investment Comparison Logic
-   Professional Frontend Script
-================================================== */
+/* =========================
+   COMPARISON TABLE SCRIPT
+   ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const tbody = document.getElementById("comparisonBody");
-
   // Investment plan definitions
   const plans = [
-    { key: "starter", name: "Starter", rate: 0.015, duration: 5, bonus: 0 },
-    { key: "corporate", name: "Corporate", rate: 0.02, duration: 5, bonus: 0 },
-    { key: "archive", name: "Archive", rate: 0.03, duration: 5, bonus: 0 },
-    { key: "family", name: "Family", rate: 0.05, duration: 7, bonus: 0 },
-    { key: "mentorship", name: "Mentorship", rate: 0.08, duration: 14, bonus: 100 },
-    { key: "savings", name: "Savings", rate: 0.05, duration: 180, bonus: 500 },
+    { name: "Starter", rate: 0.015, duration: 5 },
+    { name: "Corporate", rate: 0.02, duration: 5 },
+    { name: "Archive", rate: 0.03, duration: 5 },
+    { name: "Family", rate: 0.05, duration: 7 },
+    { name: "Mentorship", rate: 0.08, duration: 14 },
+    { name: "Savings", rate: 0.05, duration: 180 }
   ];
 
-  // Sample deposits for table rows
-  const deposits = [500, 5000, 20000, 100000, 250000, 500000];
+  // Sample deposits to illustrate ROI
+  const sampleDeposits = [500, 5000, 15000, 50000, 200000, 500000];
 
-  /**
-   * Compound interest calculation
-   * @param {number} deposit - initial deposit
-   * @param {number} rate - daily interest rate
-   * @param {number} days - investment duration
-   * @param {number} bonus - fixed bonus (if any)
-   */
-  function calculateReturns(deposit, rate, days, bonus = 0) {
-    const compounded = deposit * Math.pow(1 + rate, days);
-    return compounded + bonus;
+  // Target table body
+  const tableBody = document.getElementById("comparisonBody");
+
+  if (!tableBody) return;
+
+  // Compound calculation function
+  function calculateCompound(principal, rate, days) {
+    // Daily compounding
+    return principal * Math.pow(1 + rate, days);
   }
 
-  /**
-   * Format as currency (USD)
-   */
-  function formatCurrency(value) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+  // Format currency
+  function formatUSD(amount) {
+    return `$${amount.toLocaleString("en-US", {
       minimumFractionDigits: 2,
-    }).format(value);
+      maximumFractionDigits: 2
+    })}`;
   }
 
-  /**
-   * Populate table dynamically
-   */
-  function buildComparisonTable() {
-    tbody.innerHTML = "";
+  // Populate table rows
+  sampleDeposits.forEach(deposit => {
+    const row = document.createElement("tr");
 
-    deposits.forEach((deposit, rowIndex) => {
-      const tr = document.createElement("tr");
+    // Deposit cell
+    const depositCell = document.createElement("td");
+    depositCell.textContent = formatUSD(deposit);
+    depositCell.style.fontWeight = "600";
+    row.appendChild(depositCell);
 
-      // Deposit cell
-      const depositTd = document.createElement("td");
-      depositTd.textContent = formatCurrency(deposit);
-      depositTd.classList.add("deposit-cell");
-      tr.appendChild(depositTd);
-
-      // Plan projections
-      plans.forEach(plan => {
-        const td = document.createElement("td");
-        const earnings = calculateReturns(deposit, plan.rate, plan.duration, plan.bonus);
-        td.textContent = formatCurrency(earnings);
-        td.classList.add("plan-cell", `plan-${plan.key}`);
-        tr.appendChild(td);
-      });
-
-      // Insert row with staggered animation
-      tr.style.opacity = "0";
-      tr.style.transform = "translateY(15px)";
-      tbody.appendChild(tr);
-
-      setTimeout(() => {
-        tr.style.transition = "all 0.5s ease";
-        tr.style.opacity = "1";
-        tr.style.transform = "translateY(0)";
-      }, 200 * rowIndex);
+    // Plan returns
+    plans.forEach(plan => {
+      const cell = document.createElement("td");
+      const earnings = calculateCompound(deposit, plan.rate, plan.duration);
+      cell.textContent = formatUSD(earnings);
+      row.appendChild(cell);
     });
-  }
 
-  /**
-   * Initialize when section is visible
-   */
-  function initComparison() {
-    const section = document.getElementById("plan-comparison");
-
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          buildComparisonTable();
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(section);
-  }
-
-  // Run initializer
-  initComparison();
+    tableBody.appendChild(row);
+  });
 });
