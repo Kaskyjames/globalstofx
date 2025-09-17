@@ -1169,45 +1169,6 @@ Plan Card
   transform: translateY(-2px);
 }
 
-/* =========================
-Comparison Table
-========================= */
-.comparison-section {
-  margin-top: 5rem;
-}
-
-.comparison-table-wrapper {
-  overflow-x: auto;
-  margin-top: 2rem;
-}
-
-.comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-.comparison-table th,
-.comparison-table td {
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.95rem;
-  color: #0b2c7d;
-  border-bottom: 1px solid #e5e9f2;
-}
-
-.comparison-table thead {
-  background: #e5e9f2;
-  font-weight: 600;
-}
-
-.comparison-table tbody tr:hover {
-  background: #f5f7fa;
-}
-
 .risk-note {
   text-align: center;
   font-size: 0.9rem;
@@ -1327,4 +1288,136 @@ Responsive
   display: block;
   opacity: 1;
   visibility: visible;
+}
+
+/* =========================
+   Comparison Section Styles
+========================= */
+.comparison-section {
+  background: #0a1931; /* deep navy */
+  color: #e5e7eb;
+  padding: 5rem 2rem;
+  position: relative;
+}
+
+.comparison-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section header */
+.comparison-section .section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.comparison-section .section-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.comparison-section .section-subtitle {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #d1d5db;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+/* Table wrapper */
+.comparison-table-wrapper {
+  overflow-x: auto;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  margin-bottom: 2.5rem;
+  transition: transform 0.3s ease;
+}
+
+.comparison-table-wrapper:hover {
+  transform: scale(1.01);
+}
+
+/* Table */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.95rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.comparison-table thead {
+  background: #2563eb; /* primary blue */
+  color: #fff;
+}
+
+.comparison-table thead th {
+  padding: 1.2rem 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.comparison-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.2s ease;
+}
+
+.comparison-table tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.comparison-table tbody tr:hover {
+  background: #eef2ff;
+}
+
+.comparison-table tbody td {
+  padding: 1rem 0.8rem;
+  color: #111827;
+  font-weight: 500;
+}
+
+/* Risk note */
+.risk-note {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #d1d5db;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.risk-note a {
+  color: #60a5fa;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.risk-note a:hover {
+  color: #93c5fd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .comparison-section {
+    padding: 3rem 1rem;
+  }
+
+  .comparison-section .section-title {
+    font-size: 1.6rem;
+  }
+
+  .comparison-section .section-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .comparison-table thead th,
+  .comparison-table tbody td {
+    font-size: 0.85rem;
+    padding: 0.8rem 0.5rem;
+  }
 }
