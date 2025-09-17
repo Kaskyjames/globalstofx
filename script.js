@@ -259,3 +259,105 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// =========================
+// Investment Plans Calculator Script
+// =========================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("calculator-modal");
+  const closeModalBtn = document.getElementById("modal-close");
+  const calcForm = document.getElementById("calc-form");
+  const calcResults = document.getElementById("calc-results");
+
+  // Result fields
+  const resultDeposit = document.getElementById("result-deposit");
+  const resultRate = document.getElementById("result-rate");
+  const resultDuration = document.getElementById("result-duration");
+  const resultReferral = document.getElementById("result-referral");
+  const resultBonus = document.getElementById("result-bonus");
+  const resultTotal = document.getElementById("result-total");
+  const calcPlanName = document.getElementById("calc-plan-name");
+
+  let currentPlan = null;
+
+  // Open modal when clicking "View Calculator"
+  document.querySelectorAll(".plan-cta").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const card = e.target.closest(".plan-card");
+
+      // Get plan details from data attributes
+      currentPlan = {
+        name: card.dataset.plan,
+        min: parseFloat(card.dataset.min),
+        max: parseFloat(card.dataset.max),
+        rate: parseFloat(card.dataset.rate), // decimal (e.g., 0.02 = 2%)
+        duration: parseInt(card.dataset.duration),
+        referral: parseFloat(card.dataset.referral) || 0,
+        bonus: parseFloat(card.dataset.bonus) || 0,
+      };
+
+      // Update modal title
+      calcPlanName.textContent = `${currentPlan.name} Plan Calculator`;
+
+      // Reset form & results
+      calcForm.reset();
+      calcResults.classList.add("hidden");
+
+      // Show modal
+      modal.style.display = "block";
+      modal.setAttribute("aria-hidden", "false");
+    });
+  });
+
+  // Close modal
+  closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+  });
+
+  // Close modal when clicking outside content
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+    }
+  });
+
+  // Calculator logic
+  calcForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const depositInput = document.getElementById("deposit");
+    const deposit = parseFloat(depositInput.value);
+
+    if (!currentPlan || isNaN(deposit) || deposit <= 0) {
+      alert("Please enter a valid deposit amount.");
+      return;
+    }
+
+    // Validate deposit within plan range
+    if (deposit < currentPlan.min || deposit > currentPlan.max) {
+      alert(
+        `Deposit must be between $${currentPlan.min.toLocaleString()} and $${currentPlan.max.toLocaleString()} for the ${currentPlan.name} plan.`
+      );
+      return;
+    }
+
+    // Calculations
+    const dailyProfit = deposit * currentPlan.rate;
+    const totalProfit = dailyProfit * currentPlan.duration;
+    const referralBonus = (deposit * currentPlan.referral) / 100;
+    const signupBonus = currentPlan.bonus || 0;
+    const totalReturn = deposit + totalProfit + referralBonus + signupBonus;
+
+    // Update results
+    resultDeposit.textContent = deposit.toLocaleString();
+    resultRate.textContent = (currentPlan.rate * 100).toFixed(2);
+    resultDuration.textContent = currentPlan.duration;
+    resultReferral.textContent = currentPlan.referral.toFixed(2);
+    resultBonus.textContent = signupBonus.toLocaleString();
+    resultTotal.textContent = totalReturn.toLocaleString();
+
+    calcResults.classList.remove("hidden");
+  });
+});
