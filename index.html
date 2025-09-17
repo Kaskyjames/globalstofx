@@ -416,24 +416,25 @@
 </div>
   </section>
   
-    <!-- =========================
-   Investment Comparison Section
+  <!-- =========================
+   INVESTMENT COMPARISON SECTION
 ========================= -->
-<section class="comparison-section" id="plan-comparison" aria-labelledby="comparison-title" data-aos="fade-up" data-aos-delay="200">
+<section class="comparison-section" id="plan-comparison" aria-labelledby="comparison-title" data-aos="fade-up">
   <div class="container">
 
     <!-- Section Header -->
     <header class="section-header">
-      <h2 class="section-title" id="comparison-title">Plan Comparison Overview</h2>
+      <h2 class="section-title" id="comparison-title">
+        Plan Comparison Overview
+      </h2>
       <p class="section-subtitle">
-        A side-by-side look at potential returns across our investment plans 
-        based on sample deposits. Figures are calculated with compounding 
-        for illustration purposes only.
+        Compare projected returns across our investment plans, calculated with compounding for illustration purposes. 
+        Transparent, structured, and designed to help you make informed decisions.
       </p>
     </header>
 
     <!-- Comparison Table -->
-    <div class="comparison-table-wrapper" data-aos="fade-up" data-aos-delay="400">
+    <div class="comparison-table-wrapper" role="region" aria-label="Investment Comparison Table">
       <table class="comparison-table" role="table" aria-describedby="comparison-note">
         <thead>
           <tr>
@@ -447,22 +448,25 @@
           </tr>
         </thead>
         <tbody id="comparisonBody">
-          <!-- Dynamically populated via JavaScript -->
+          <!-- Dynamically populated via script.js -->
         </tbody>
       </table>
     </div>
 
     <!-- Risk Disclaimer -->
-    <p class="risk-note" id="comparison-note" data-aos="fade-up" data-aos-delay="500">
-      <strong>Important Notice:</strong> Past performance is not indicative of future results. 
-      All investments involve risk, including the potential loss of principal. 
-      Please read our 
-      <a href="/docs/risk-disclosure.pdf" target="_blank" rel="noopener noreferrer">
-        full Risk Disclosure
-      </a> before making investment decisions.
-    </p>
+    <div class="disclaimer" role="note">
+      <p id="comparison-note" class="risk-note">
+        <strong>Important Notice:</strong> Past performance is not a guarantee of future results. 
+        All investments carry risks, including potential loss of principal. 
+        Please review our 
+        <a href="/docs/risk-disclosure.pdf" target="_blank" rel="noopener noreferrer">
+          full Risk Disclosure
+        </a> before investing.
+      </p>
+    </div>
+    
   </div>
-</section>
+  </section>
   
   
   <!-- Floating WhatsApp Chat -->  
