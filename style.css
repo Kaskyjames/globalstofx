@@ -1083,13 +1083,15 @@ Plans Grid
 /* =========================
 Plan Card
 ========================= */
+/* Minimal change: background image applied (no overlay, no filters) */
 .plan-card {
-  background: #fff;
+  background: url("images/stats.webp") center/cover no-repeat;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   padding: 2rem 1.5rem 2.5rem;
   position: relative;
   transition: transform 0.3s, box-shadow 0.3s;
+  /* keep text color inherited from body (no forced overlay) */
 }
 
 .plan-card:hover {
@@ -1311,4 +1313,4 @@ Responsive
     padding: 1.5rem;
     margin: 10% auto;
   }
-}
+   }
